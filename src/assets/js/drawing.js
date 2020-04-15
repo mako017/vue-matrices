@@ -90,6 +90,10 @@ class drawSVG {
                 break;
         }
     }
+
+    static getSvg(id){
+        console.log(SVG(id).svg());
+    }
 }
 
 export default drawSVG

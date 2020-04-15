@@ -31,8 +31,9 @@
         <svg viewBox="0 0 100 100" class="element e-opt" id="el16" @click="draw(16)"></svg>
         <svg viewBox="0 0 100 100" class="element e-opt" id="el17" @click="draw(17)"></svg>
         <svg viewBox="0 0 100 100" class="element e-opt" id="el18" @click="draw(18)"></svg>
-        <svg viewBox="0 0 100 100" class="element e-opt" id="el19" @click="draw(19)"></svg>
+        <svg viewBox="0 0 100 100" class="element e-opt" id="el19" @click="getSvg"></svg>
     </div>
+
   </div>
 </template>
 
@@ -45,17 +46,7 @@ export default {
 data: function(){
     return {
       selection : 1,
-      code : [
-          "00000000000000000000",
-          "00000000000000000000",
-          "00000000000000000000",
-          "00000000000000000000",
-          "00000000000000000000",
-          "00000000000000000000",
-          "00000000000000000000",
-          "00000000000000000000",
-          "00000000000000000000",
-      ]
+      code : this.item.code.split(',')
     }
   },
     methods: {
@@ -66,6 +57,23 @@ data: function(){
         },
         setSelection(e){
             this.selection = e.target.id[3];
+        },
+        saveSvg(id, name) {
+            let svgEl = document.getElementById(id)
+            svgEl.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+            var svgData = svgEl.outerHTML;
+            var preface = '<?xml version="1.0" standalone="no"?>\r\n';
+            var svgBlob = new Blob([preface, svgData], {type:"image/svg+xml;charset=utf-8"});
+            var svgUrl = URL.createObjectURL(svgBlob);
+            var downloadLink = document.createElement("a");
+            downloadLink.href = svgUrl;
+            downloadLink.download = name;
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+        },
+        getSvg(){
+            drawSVG.getSvg("mat1");
         }
     },
     mounted(){
@@ -81,8 +89,16 @@ data: function(){
                 if (+this.code[this.selection-1].split('')[i] === 1) drawSVG.select("mat"+this.selection,i)
             }
             this.$set(this.item, 'code', this.code.join(','))
+        },
+        item: function(){
+            this.code = this.item.code.split(',');
+            for (let i = 0; i < 9; i++) {
+                for (let j = 0; j < this.code[i].split('').length; j++) {
+                    if (+this.code[i].split('')[j] === 1) drawSVG.select("mat"+(i+1),j)
+                }
+            }
         }
-    }
+    },
 }
 
 </script>
@@ -91,13 +107,6 @@ data: function(){
 .root{
     width: 100%;
 }
-/* .item-container{
-    display: grid;
-    width: 100%;
-    grid-template-rows: 12% 12% 12%;
-    grid-template-columns: 12% 12% 12%;
-    align-content: center;
-} */
 .item-container{
     width: 35%;
     margin: 1rem auto;
