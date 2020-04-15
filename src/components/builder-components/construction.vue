@@ -1,15 +1,15 @@
 <template>
   <div class="root">
     <div class="item-container">
-        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 1}" id="mat1" val="1" @click="setSelection"></svg>
-        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 2}" id="mat2" val="2" @click="setSelection"></svg>
-        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 3}" id="mat3" val="3" @click="setSelection"></svg>
-        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 4}" id="mat4" val="4" @click="setSelection"></svg>
-        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 5}" id="mat5" val="5" @click="setSelection"></svg>
-        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 6}" id="mat6" val="6" @click="setSelection"></svg>
-        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 7}" id="mat7" val="7" @click="setSelection"></svg>
-        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 8}" id="mat8" val="8" @click="setSelection"></svg>
-        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 9}" id="mat9" val="9" @click="setSelection"></svg>
+        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 1}" id="mat1" ref="mat1" val="1" @click="setSelection" @dblclick="clear"></svg>
+        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 2}" id="mat2" val="2" @click="setSelection" @dblclick="clear"></svg>
+        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 3}" id="mat3" val="3" @click="setSelection" @dblclick="clear"></svg>
+        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 4}" id="mat4" val="4" @click="setSelection" @dblclick="clear"></svg>
+        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 5}" id="mat5" val="5" @click="setSelection" @dblclick="clear"></svg>
+        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 6}" id="mat6" val="6" @click="setSelection" @dblclick="clear"></svg>
+        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 7}" id="mat7" val="7" @click="setSelection" @dblclick="clear"></svg>
+        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 8}" id="mat8" val="8" @click="setSelection" @dblclick="clear"></svg>
+        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 9}" id="mat9" val="9" @click="setSelection" @dblclick="clear"></svg>
     </div>
     <div class="opt-container">
         <svg viewBox="0 0 100 100" class="element e-opt" id="el0" @click="draw(0)"></svg>
@@ -39,6 +39,7 @@
 
 <script>
 import drawSVG from "@/assets/js/drawing.js"
+import rCon from "@/assets/js/id-rule.js"
 export default {
     props:{
         item:Object,
@@ -50,6 +51,10 @@ data: function(){
     }
   },
     methods: {
+        clear(){
+            console.log(this.$refs.mat1.innerHTML);
+            // this.$set(this.code, this.selection-1, "00000000000000000000");
+        },
         draw(el){
             let helpArr = this.code[this.selection-1].split('');
             helpArr[el] = +!parseInt(helpArr[el]);
@@ -89,10 +94,12 @@ data: function(){
                 if (+this.code[this.selection-1].split('')[i] === 1) drawSVG.select("mat"+this.selection,i)
             }
             this.$set(this.item, 'code', this.code.join(','))
+            this.$set(this.item, 'rules', rCon.fullTest(this.item.code));
         },
         item: function(){
             this.code = this.item.code.split(',');
             for (let i = 0; i < 9; i++) {
+                drawSVG.clear("mat"+(i+1));
                 for (let j = 0; j < this.code[i].split('').length; j++) {
                     if (+this.code[i].split('')[j] === 1) drawSVG.select("mat"+(i+1),j)
                 }

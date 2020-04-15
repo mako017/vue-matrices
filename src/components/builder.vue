@@ -3,7 +3,7 @@
       <div class="help-menu">
         <h2 class="side-title">Hilfe</h2>
         <collapse v-for="item in help" :key="item.title" :item="item" />
-        <button id="reset" class="final-button">Zurücksetzen</button>
+        <button id="reset" class="final-button" @click="resetItem">Zurücksetzen</button>
       </div>
       <div class="main">
         <div class="main-title">
@@ -12,6 +12,7 @@
             <svg @click="switchItem(1)" viewBox="0 0 50 80" xml:space="preserve"><polyline stroke-linecap="round" stroke-linejoin="round" points="0.375,0.375 45.63,38.087 0.375,75.8 "/></svg>
         </div>
         <con :item="item" />
+        <drawer :items="items" />
       </div>
       <div class="control-menu">
         <h2 class="side-title">Control Panel</h2>
@@ -26,32 +27,32 @@
             <tbody>
               <tr>
                 <td>ADD</td>
-                <td>-</td>
+                <td>{{item.rules.add.length}}</td>
                 <td>-</td>
               </tr>
               <tr>
                 <td>SUB</td>
-                <td>-</td>
+                <td>{{item.rules.sub.length}}</td>
                 <td>-</td>
               </tr>
               <tr>
                 <td>EKA</td>
-                <td>-</td>
+                <td>{{item.rules.eka.length}}</td>
                 <td>-</td>
               </tr>
               <tr>
                 <td>SM</td>
-                <td>-</td>
+                <td>{{item.rules.sm.length}}</td>
                 <td>-</td>
               </tr>
               <tr>
                 <td>ROT</td>
-                <td>-</td>
+                <td>{{item.rules.rot.length}}</td>
                 <td>-</td>
               </tr>
               <tr>
                 <td>VOLL</td>
-                <td>-</td>
+                <td>{{item.rules.voll.length}}</td>
                 <td>-</td>
               </tr>
             </tbody>
@@ -66,7 +67,7 @@
         <div class="side-container">
           <h3>Itemcode</h3>
           <textarea cols="30" rows="5" v-model="item.code" readonly></textarea>
-          <svg viewBox="0 0 101 101" id="add" style="width:50%;">
+          <svg viewBox="0 0 101 101" id="add" style="width:50%;" class="hidden">
             <defs>
                 <path id="border" d="m 1 1 h 99 v 99 h -99 z " fill="#fff" stroke="#000" stroke-width="2" />
             </defs>
@@ -98,10 +99,12 @@
 <script>
 import collapse from "@/components/builder-components/collapsible.vue";
 import con from "@/components/builder-components/construction.vue";
+import drawer from "@/components/builder-components/item-drawer.vue"
 export default {
   components: {
     collapse,
     con,
+    drawer,
   },
   data: function(){
     return {
@@ -116,43 +119,62 @@ export default {
         },
         {
           title: "Einzelkomponentenaddition",
-          content: "Die Symbole der zweiten Zelle werden von den Symbolen der ersten Zelle entfernt. Die übrigen Symbole werden in der dritten Zelle abgebildet.",
+          content: "In der dritten Zelle einer Reihe werden alle Symbole abgebildet, die entweder in der ersten ODER in der zweiten Zelle vorhanden sind. Wenn ein Element in der ersten UND der zweiten Zelle vorhanden ist, so wird es in der dritten Zelle nicht abgebildet.",
         },
         {
           title: "Schnittmenge",
-          content: "Die Symbole der zweiten Zelle werden von den Symbolen der ersten Zelle entfernt. Die übrigen Symbole werden in der dritten Zelle abgebildet.",
+          content: "In der dritten Zelle einer Reihe werden alle Symbole abgebildet, die sowohl in der ersten als auch der zweiten Zelle enthalten sind.",
         },
         {
           title: "Rotation",
-          content: "Die Symbole der zweiten Zelle werden von den Symbolen der ersten Zelle entfernt. Die übrigen Symbole werden in der dritten Zelle abgebildet.",
+          content: "Über die Reihe hinweg rotiert das Symbol. Dies kann sowohl im als auch gegen den Uhrzeigersinn geschehen. Die Rotation kann um 90° oder 180° geschehen.",
         },
         {
           title: "Vollständigkeit",
-          content: "Die Symbole der zweiten Zelle werden von den Symbolen der ersten Zelle entfernt. Die übrigen Symbole werden in der dritten Zelle abgebildet.",
+          content: "Die Symbole, auf die diese Regel angewandt wird, müssen in allen Zeilen vollständig enthalten sein.",
         },
       ],
       items :[],
       item : {
         id : 0,
-        code :"00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000"
+        code :"00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000",
+        svg : [0,0,0,0,0,0,0,0,0],
+        rules : {
+          add:[],
+          sub:[],
+          eka:[],
+          sm:[],
+          rot:[],
+          voll:[],
+        }
       }
     }
   },
   methods:{
+    resetItem(){
+      this.$set(this.item, 'code', "00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000");
+      this.item = Object.assign({},this.item);
+    },
     saveItem(){
       if (!this.items[this.item.id+1]) {
         this.items.push({...this.item});
         this.$set(this.item, 'id', this.item.id+1);
         this.$set(this.item, 'code', "00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000");
+        this.$set(this.item, 'rules', {
+          add:[],
+          sub:[],
+          eka:[],
+          sm:[],
+          rot:[],
+          voll:[],
+        });
         this.item = Object.assign({},this.item);
       }
       else{
-        // this.$set(this.items, this.item.id, {...this.item});
-        // this.item = Object.assign({},this.items[this.item.id+(+1)]);
+        this.$set(this.items, this.item.id, {...this.item})
       }
     },
     switchItem(val){
-      console.log("id: "+this.item.id, "len: "+this.items.length);
       if (+val === 1 && this.item.id === this.items.length-1) {
         this.$set(this.item, 'id', this.item.id+1);
         this.$set(this.item, 'code', "00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000");
@@ -202,7 +224,8 @@ h3{
   width: 50%;
   display: flex;
   flex-direction: column;
-  padding: 1rem 0;
+  padding: 1rem 0 0 0;
+  overflow: hidden;
 }
 .main-title{
   align-self: center;
