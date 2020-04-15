@@ -10,9 +10,9 @@ npm run build
 cd dist
 
 git init
-git add -A
+git add .
 git commit -m 'deploy'
 
 git push -f git@github.com:mako017/vue-matrices.git master:gh-pages
 
-cd -
+cd ..
