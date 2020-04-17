@@ -60,36 +60,27 @@
         </div>
         <div class="side-container">
           <h3>Geschätzte Schwierigkeit</h3>
+          <div class="diff-grid">
+            <span>Item</span>
+            <span>Test</span>
+            <md-progress-bar class="md-accent" :md-value="33"></md-progress-bar>
+            <md-progress-bar class="md-accent" :md-value="33"></md-progress-bar>
+          </div>
         </div>
         <div class="side-container">
           <h3>Einstellungen</h3>
+          <div class="export-settings">
+            <md-switch v-model="settings.svg" class="md-primary">SVG</md-switch>
+            <md-switch v-model="settings.pdf" class="md-primary">PDF</md-switch>
+          </div>
+          <div class="side-buttons">
+            <md-button class="md-raised">Export Set</md-button>
+            <md-button class="md-raised">Upload Set</md-button>
+          </div>
         </div>
         <div class="side-container">
           <h3>Itemcode</h3>
-          <textarea cols="30" rows="5" v-model="item.code" readonly></textarea>
-          <svg viewBox="0 0 101 101" id="add" style="width:50%;" class="hidden">
-            <defs>
-                <path id="border" d="m 1 1 h 99 v 99 h -99 z " fill="#fff" stroke="#000" stroke-width="2" />
-            </defs>
-            <use transform="translate(0,0) scale(0.3)" href="#border" />
-            <use transform="translate(0,0) scale(0.3)" href="#mat1" />
-            <use transform="translate(35,0) scale(0.3)" href="#border" />
-            <use transform="translate(35,0) scale(0.3)" href="#mat2" />
-            <use transform="translate(70,0) scale(0.3)" href="#border" />
-            <use transform="translate(70,0) scale(0.3)" href="#mat3" />
-            <use transform="translate(0,35) scale(0.3)" href="#border" />
-            <use transform="translate(0,35) scale(0.3)" href="#mat4" />
-            <use transform="translate(35,35) scale(0.3)" href="#border" />
-            <use transform="translate(35,35) scale(0.3)" href="#mat5" />
-            <use transform="translate(70,35) scale(0.3)" href="#border" />
-            <use transform="translate(70,35) scale(0.3)" href="#mat6" />
-            <use transform="translate(0,70) scale(0.3)" href="#border" />
-            <use transform="translate(0,70) scale(0.3)" href="#mat7" />
-            <use transform="translate(35,70) scale(0.3)" href="#border" />
-            <use transform="translate(35,70) scale(0.3)" href="#mat8" />
-            <use transform="translate(70,70) scale(0.3)" href="#border" />
-            <use transform="translate(70,70) scale(0.3)" href="#mat9" />
-        </svg>
+          <textarea v-model="item.code" readonly></textarea>
         </div>
         <button id="save-item" class="final-button" @click="saveItem">Item speichern</button>
       </div>
@@ -97,9 +88,16 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import collapse from "@/components/builder-components/collapsible.vue";
 import con from "@/components/builder-components/construction.vue";
-import drawer from "@/components/builder-components/item-drawer.vue"
+import drawer from "@/components/builder-components/item-drawer.vue";
+import {MdButton, MdProgress, MdSwitch} from 'vue-material/dist/components'
+import 'vue-material/dist/vue-material.min.css'
+import 'vue-material/dist/theme/default.css'
+Vue.use(MdButton)
+Vue.use(MdProgress)
+Vue.use(MdSwitch)
 export default {
   components: {
     collapse,
@@ -147,6 +145,10 @@ export default {
           rot:[],
           voll:[],
         }
+      },
+      settings :{
+        svg : true,
+        pdf : false,
       }
     }
   },
@@ -205,7 +207,10 @@ h2{
 h3{
   font-weight: 600;
 }
-
+textarea{
+  resize: none;
+  height: 4.2rem;
+}
 .builder{
     width: 100%;
     height: 100vh;
@@ -260,9 +265,40 @@ h3{
   flex-direction: column;
   border-bottom: 1px solid black;
 }
+.export-settings{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  width: 30%;
+  margin: 0 10%;
+}
+.side-buttons{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.side-buttons > *{
+  width: 40%;
+
+}
 
 .side-container:last-of-type{
   border: none;
+}
+
+.diff-grid{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.diff-grid > *{
+  width: 40%;
+  text-align: center;
+  margin: 0.3rem 1rem;
 }
 
 .final-button{
