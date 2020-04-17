@@ -92,7 +92,11 @@ class drawSVG {
     }
 
     static getSvg(id){
-        console.log(SVG(id).svg());
+        let code = SVG(id).svg(false);
+        code = code.substr(code.indexOf('>')+1)
+        code = code.substr(0,code.indexOf('<defs'))
+        code = code.replace(/ id="([^"]*)"?/g,'')
+        return code;
     }
 }
 

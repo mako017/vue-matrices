@@ -5,12 +5,7 @@
         <label for=test class="lbl-toggle">{{items.length}} Item(s)</label>
         <div class="collapsible-content">
             <div class="content-inner">
-                <p>Test</p>
-                <p>Test</p>
-                <p>Test</p>
-                <p>Test</p>
-                <p>Test</p>
-                <p>Test</p>
+                <mini v-for="item in items" :key="item.id" :item="item" />
             </div>
         </div>
     </div>
@@ -18,8 +13,12 @@
 </template>
 
 <script>
+import mini from "@/components/builder-components/mini-item.vue";
 export default {
-props :{
+components : {
+    mini
+},
+props : {
     items : Array,
 }
 }
@@ -27,7 +26,6 @@ props :{
 
 <style scoped>
     .drawer {
-
         position: fixed;
         left: 0;
         right: 0;
@@ -74,16 +72,25 @@ props :{
     color: hsl(0, 0%, 0%);
     }
 
+    .content-inner{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
     .collapsible-content {
     max-height: 0px;
     overflow: hidden;
     transition: max-height .25s ease-in-out;
+    display: flex;
     }
 
     .toggle:checked + .lbl-toggle + .collapsible-content {
-    max-height: 100vh;
+    max-height: 90vh;
     position: relative;
     bottom: 0;
+    overflow-y: auto;
     }
 
     .toggle:checked + .lbl-toggle {

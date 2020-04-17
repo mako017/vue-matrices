@@ -2,14 +2,14 @@
   <div class="root">
     <div class="item-container">
         <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 1}" id="mat1" ref="mat1" val="1" @click="setSelection" @dblclick="clear"></svg>
-        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 2}" id="mat2" val="2" @click="setSelection" @dblclick="clear"></svg>
-        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 3}" id="mat3" val="3" @click="setSelection" @dblclick="clear"></svg>
-        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 4}" id="mat4" val="4" @click="setSelection" @dblclick="clear"></svg>
-        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 5}" id="mat5" val="5" @click="setSelection" @dblclick="clear"></svg>
-        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 6}" id="mat6" val="6" @click="setSelection" @dblclick="clear"></svg>
-        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 7}" id="mat7" val="7" @click="setSelection" @dblclick="clear"></svg>
-        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 8}" id="mat8" val="8" @click="setSelection" @dblclick="clear"></svg>
-        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 9}" id="mat9" val="9" @click="setSelection" @dblclick="clear"></svg>
+        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 2}" id="mat2" ref="mat2" val="2" @click="setSelection" @dblclick="clear"></svg>
+        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 3}" id="mat3" ref="mat3" val="3" @click="setSelection" @dblclick="clear"></svg>
+        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 4}" id="mat4" ref="mat4" val="4" @click="setSelection" @dblclick="clear"></svg>
+        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 5}" id="mat5" ref="mat5" val="5" @click="setSelection" @dblclick="clear"></svg>
+        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 6}" id="mat6" ref="mat6" val="6" @click="setSelection" @dblclick="clear"></svg>
+        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 7}" id="mat7" ref="mat7" val="7" @click="setSelection" @dblclick="clear"></svg>
+        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 8}" id="mat8" ref="mat8" val="8" @click="setSelection" @dblclick="clear"></svg>
+        <svg viewBox="0 0 100 100" class="element e-item" :class="{selection:selection == 9}" id="mat9" ref="mat9" val="9" @click="setSelection" @dblclick="clear"></svg>
     </div>
     <div class="opt-container">
         <svg viewBox="0 0 100 100" class="element e-opt" id="el0" @click="draw(0)"></svg>
@@ -63,20 +63,6 @@ data: function(){
         setSelection(e){
             this.selection = e.target.id[3];
         },
-        saveSvg(id, name) {
-            let svgEl = document.getElementById(id)
-            svgEl.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-            var svgData = svgEl.outerHTML;
-            var preface = '<?xml version="1.0" standalone="no"?>\r\n';
-            var svgBlob = new Blob([preface, svgData], {type:"image/svg+xml;charset=utf-8"});
-            var svgUrl = URL.createObjectURL(svgBlob);
-            var downloadLink = document.createElement("a");
-            downloadLink.href = svgUrl;
-            downloadLink.download = name;
-            document.body.appendChild(downloadLink);
-            downloadLink.click();
-            document.body.removeChild(downloadLink);
-        },
         getSvg(){
             drawSVG.getSvg("mat1");
         }
@@ -95,6 +81,9 @@ data: function(){
             }
             this.$set(this.item, 'code', this.code.join(','))
             this.$set(this.item, 'rules', rCon.fullTest(this.item.code));
+            let help = [...this.item.svg]
+            help[this.selection-1] = drawSVG.getSvg("mat"+this.selection)
+            this.$set(this.item, 'svg', [...help]);
         },
         item: function(){
             this.code = this.item.code.split(',');
