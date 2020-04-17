@@ -214,7 +214,7 @@ textarea{
 .builder{
     width: 100%;
     height: 100vh;
-    background-color: hsl(0, 0%, 85%);
+    background-color: hsl(0, 0%, 92%);
     display: flex;
     flex-direction: row;
 }
