@@ -103,29 +103,27 @@ data: function(){
 .root{
     width: 100%;
 }
+
 .item-container{
-    width: 35%;
+    width: 27vh;
+    height: 27vh;
     margin: 1rem auto;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-.opt-container{
-    width: 45%;
-    margin: 1rem auto;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+
 }
 
-.opt-container > .element{
-    width: 20%;
-    height: 20%;
+.opt-container{
+    width: 36vh;
+    height: 45vh;
+    margin: 1rem auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
 }
+
 .element{
-    display: block;
-    width: 25%;
-    height: 25%;
     background-color: white;
     margin: 5px;
     border: 1px solid black;

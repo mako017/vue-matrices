@@ -90,7 +90,6 @@
             <use transform="translate(70,70) scale(0.3)" href="#border" />
             <use transform="translate(70,70) scale(0.3)" href="#mat9" />
         </svg>
-        {{item.svg[0]}}
         </div>
         <button id="save-item" class="final-button" @click="saveItem">Item speichern</button>
       </div>
@@ -153,9 +152,8 @@ export default {
   },
   methods:{
     resetItem(){
-      // this.$set(this.item, 'code', "00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000");
-      // this.item = Object.assign({},this.item);
-      console.log(this.item);
+      this.$set(this.item, 'code', "00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000");
+      this.item = Object.assign({},this.item);
       
     },
     saveItem(){
@@ -176,8 +174,6 @@ export default {
       else{
         this.$set(this.items, this.item.id, {...this.item})
       }
-      console.log(this.items);
-      
     },
     switchItem(val){
       if (+val === 1 && this.item.id === this.items.length-1) {
@@ -186,7 +182,6 @@ export default {
         this.item = Object.assign({},this.item);
       }
       if ((+val === -1  && this.item.id > 0) | (+val === 1 && this.item.id < this.items.length-1)) {
-        // console.log(this.item.id);
         this.item = Object.assign({},this.items[this.item.id+(+val)]);
       }
     }
