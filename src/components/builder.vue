@@ -75,7 +75,9 @@
           </div>
           <div class="side-buttons">
             <md-button class="md-raised" @click="exportAllSVG">Export Set</md-button>
-            <md-button class="md-raised" disabled>Upload Set</md-button>
+            <md-button class="md-raised">Upload Set</md-button>
+            <md-button class="md-raised" @click="console.log(0)">Print Test</md-button>
+            <md-button class="md-raised" @click="exportCodes()">Export Itemcodes</md-button>
           </div>
         </div>
         <div class="side-container">
@@ -203,7 +205,7 @@ export default {
           return url;
         }
       let JSZip = require("jszip");
-      let FS = require("file-saver")
+      let FS = require("file-saver");
       let $ = require("jquery");
       
       let z = new JSZip();
@@ -215,6 +217,18 @@ export default {
       .then(function (blob) {
           FS.saveAs(blob, "matrices.zip");
       });
+    },
+    exportCodes(){
+      let FS = require("file-saver");
+      const array = [Object.keys(this.items[0])].concat(this.items)
+
+      let result = array.map(it => {
+        return Object.values(it).join(';')
+      }).join('\n')
+      let blob = new Blob([result], {type: "text/plain;charset=utf-8"});
+      FS.saveAs(blob, "itemcodes.csv")
+      console.log(result);
+      
     }
   },
   computed:{
@@ -310,6 +324,7 @@ textarea{
 }
 .side-buttons > *{
   width: 40%;
+  margin: 0.5rem auto;
 
 }
 
