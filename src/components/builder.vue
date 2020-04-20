@@ -74,8 +74,8 @@
             <md-switch v-model="settings.pdf" class="md-primary">PDF</md-switch>
           </div>
           <div class="side-buttons">
-            <md-button class="md-raised">Export Set</md-button>
-            <md-button class="md-raised">Upload Set</md-button>
+            <md-button class="md-raised" @click="exportAllSVG">Export Set</md-button>
+            <md-button class="md-raised" disabled>Upload Set</md-button>
           </div>
         </div>
         <div class="side-container">
@@ -186,6 +186,35 @@ export default {
       if ((+val === -1  && this.item.id > 0) | (+val === 1 && this.item.id < this.items.length-1)) {
         this.item = Object.assign({},this.items[this.item.id+(+val)]);
       }
+    },
+    exportAllSVG(){
+        function saveSvg(id) {
+          var svg = document.getElementById(id);
+          var serializer = new XMLSerializer();
+          var source = serializer.serializeToString(svg);
+          if(!source.match(/^<svg[^>]+xmlns="http:\/\/www\.w3\.org\/2000\/svg"/)){
+              source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+          }
+          if(!source.match(/^<svg[^>]+"http:\/\/www\.w3\.org\/1999\/xlink"/)){
+              source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
+          }
+          source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
+          var url = window.btoa(source);
+          return url;
+        }
+      let JSZip = require("jszip");
+      let FS = require("file-saver")
+      let $ = require("jquery");
+      
+      let z = new JSZip();
+      $("svg[id^='mini']").each(function () {
+        z.file(this.id.replace("mini",'')+'.svg', saveSvg(this.id), {base64: true});
+      });
+
+      z.generateAsync({type:"blob"})
+      .then(function (blob) {
+          FS.saveAs(blob, "matrices.zip");
+      });
     }
   },
   computed:{

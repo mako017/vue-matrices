@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <h4>Item {{item.id+1}}</h4>
-        <svg v-bind="{id:'mini'+item.id}" viewBox="0 0 101 101" @click="saveSvg">
+        <svg xmlns="http://www.w3.org/2000/svg" v-bind="{id:'mini'+item.id}" viewBox="0 0 101 101" @click="saveSvg">
             <defs>
                 <path id="border" d="m 0 0 h 100 v 100 h -100 z " fill="#fff" stroke="#000" stroke-width="2" />
                 <g v-bind="{id: 'i' + item.id + '_m0'}" v-html="item.svg[0]"></g>
@@ -43,10 +43,8 @@ export default {
     },
     methods:{
         saveSvg(event) {
-            console.log(event.target.parentNode.id);
-            
             let id = event.target.parentNode.id;
-            let name = "Item"+id.replace('mini','');
+            let name = "Item"+id.replace('mini','')+".svg";
             let svgEl = document.getElementById(id)
             svgEl.setAttribute("xmlns", "http://www.w3.org/2000/svg");
             var svgData = svgEl.outerHTML;
@@ -60,7 +58,7 @@ export default {
             downloadLink.click();
             document.body.removeChild(downloadLink);
         },
-    }
+    },
 }
 </script>
 
