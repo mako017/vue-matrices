@@ -63,7 +63,7 @@
           <div class="diff-grid">
             <span>Item</span>
             <span>Test</span>
-            <md-progress-bar class="md-accent" :md-value="33"></md-progress-bar>
+            <md-progress-bar class="md-accent" :md-value="itemDiff"></md-progress-bar>
             <md-progress-bar class="md-accent" :md-value="33"></md-progress-bar>
           </div>
         </div>
@@ -233,7 +233,14 @@ export default {
   },
   computed:{
     itemCounter: function(){
-      return "Item " + (this.item.id + 1) + " von " + (this.items.length + 1)
+      return "Item " + (this.item.id + 1) + " von " + (this.items.length + 1);
+    },
+    itemDiff: function(){
+      let rules = this.item.rules.add.length + this.item.rules.sub.length + this.item.rules.eka.length + this.item.rules.sm.length + this.item.rules.rot.length;
+      if (this.item.rules.sub.length > 0) rules +=1;
+      console.log(rules/6);
+      
+      return (rules/6)*100;
     }
   }
 }
