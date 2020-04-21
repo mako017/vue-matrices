@@ -28,32 +28,32 @@
               <tr>
                 <td>ADD</td>
                 <td>{{item.rules.add.length}}</td>
-                <td>-</td>
+                <td>{{testRules.add}}</td>
               </tr>
               <tr>
                 <td>SUB</td>
                 <td>{{item.rules.sub.length}}</td>
-                <td>-</td>
+                <td>{{testRules.sub}}</td>
               </tr>
               <tr>
                 <td>EKA</td>
                 <td>{{item.rules.eka.length}}</td>
-                <td>-</td>
+                <td>{{testRules.eka}}</td>
               </tr>
               <tr>
                 <td>SM</td>
                 <td>{{item.rules.sm.length}}</td>
-                <td>-</td>
+                <td>{{testRules.sm}}</td>
               </tr>
               <tr>
                 <td>ROT</td>
                 <td>{{item.rules.rot.length}}</td>
-                <td>-</td>
+                <td>{{testRules.rot}}</td>
               </tr>
               <tr>
                 <td>VOLL</td>
                 <td>{{item.rules.voll.length}}</td>
-                <td>-</td>
+                <td>{{testRules.voll}}</td>
               </tr>
             </tbody>
           </table>
@@ -241,7 +241,26 @@ export default {
       console.log(rules/6);
       
       return (rules/6)*100;
-    }
+    },
+    testRules:function () { 
+      let rules ={
+        add : 0,
+        sub : 0,
+        eka : 0,
+        sm : 0,
+        rot : 0,
+        voll : 0,
+      }
+      this.items.forEach(element => {
+        rules.add += element.rules.add.length;
+        rules.sub += element.rules.sub.length;
+        rules.eka += element.rules.eka.length;
+        rules.sm += element.rules.sm.length;
+        rules.rot += element.rules.rot.length;
+        if (element.rules.voll.length>0) rules.voll += 1;
+      });
+      return rules;
+     }
   }
 }
 </script>
