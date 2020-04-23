@@ -64,7 +64,7 @@
             <span>Item</span>
             <span>Test</span>
             <md-progress-bar class="md-accent" :md-value="itemDiff"></md-progress-bar>
-            <md-progress-bar class="md-accent" :md-value="33"></md-progress-bar>
+            <md-progress-bar class="md-accent" :md-value="testRules.est"></md-progress-bar>
           </div>
         </div>
         <div class="side-container">
@@ -161,10 +161,11 @@ export default {
       
     },
     saveItem(){
-      if (!this.items[this.item.id+1]) {
+      if (!this.items[this.item.id]) {
         this.items.push({...this.item});
         this.$set(this.item, 'id', this.item.id+1);
         this.$set(this.item, 'code', "00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000");
+        this.$set(this.item, 'svg', ["0","0","0","0","0","0","0","0","0"]);
         this.$set(this.item, 'rules', {
           add:[],
           sub:[],
@@ -190,6 +191,7 @@ export default {
       }
     },
     exportAllSVG(){
+      if (!this.settings.svg) return 0;
         function saveSvg(id) {
           var svg = document.getElementById(id);
           var serializer = new XMLSerializer();
@@ -225,6 +227,7 @@ export default {
       let result = array.map(it => {
         return Object.values(it).join(';')
       }).join('\n')
+      result = result.match(/^.*?;.*?;/gm).join("\n");
       let blob = new Blob([result], {type: "text/plain;charset=utf-8"});
       FS.saveAs(blob, "itemcodes.csv")
       console.log(result);
@@ -237,7 +240,7 @@ export default {
     },
     itemDiff: function(){
       let rules = this.item.rules.add.length + this.item.rules.sub.length + this.item.rules.eka.length + this.item.rules.sm.length + this.item.rules.rot.length;
-      if (this.item.rules.sub.length > 0) rules +=1;
+      if (this.item.rules.voll.length > 0) rules +=1;
       console.log(rules/6);
       
       return (rules/6)*100;
@@ -250,6 +253,7 @@ export default {
         sm : 0,
         rot : 0,
         voll : 0,
+        est : 0,
       }
       this.items.forEach(element => {
         rules.add += element.rules.add.length;
@@ -259,6 +263,7 @@ export default {
         rules.rot += element.rules.rot.length;
         if (element.rules.voll.length>0) rules.voll += 1;
       });
+      rules.est = ((rules.add+rules.sub+rules.eka+rules.sm+rules.rot+rules.voll)/(6*this.items.length))*100
       return rules;
      }
   }
