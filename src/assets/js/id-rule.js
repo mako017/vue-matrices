@@ -145,6 +145,28 @@ class rCon {
         }
         return el;
     }
+
+    //test solvability
+    static solvable(code, rules) {
+        let symbols = [];
+        let arr = code.split(",")
+        rules = [...rules.add,...rules.sub,...rules.eka,...rules.sm,...rules.rot,...rules.voll]
+        for (let i = 0; i < 5; i++) {
+            for (let j = 0; j < 9; j++) {
+                if (arr[j].substr(i*4,4) !== "0000") {
+                    symbols.push(i);
+                    break;
+                }
+            }
+        }
+
+        let problems = symbols.filter((item => rules.indexOf(item) < 0));
+        if (problems.length > 0) {
+            alert("This item can't be solved because there are problems with the element row(s) " + problems);
+            return false;
+        }
+        return true;
+    }
 }
 
 export default rCon

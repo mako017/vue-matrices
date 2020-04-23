@@ -95,6 +95,7 @@ import collapse from "@/components/builder-components/collapsible.vue";
 import con from "@/components/builder-components/construction.vue";
 import drawer from "@/components/builder-components/item-drawer.vue";
 import {MdButton, MdProgress, MdSwitch} from 'vue-material/dist/components'
+import rCon from "@/assets/js/id-rule.js"
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
 Vue.use(MdButton)
@@ -161,23 +162,25 @@ export default {
       
     },
     saveItem(){
-      if (!this.items[this.item.id]) {
-        this.items.push({...this.item});
-        this.$set(this.item, 'id', this.item.id+1);
-        this.$set(this.item, 'code', "00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000");
-        this.$set(this.item, 'svg', ["0","0","0","0","0","0","0","0","0"]);
-        this.$set(this.item, 'rules', {
-          add:[],
-          sub:[],
-          eka:[],
-          sm:[],
-          rot:[],
-          voll:[],
-        });
-        this.item = Object.assign({},this.item);
-      }
-      else{
-        this.$set(this.items, this.item.id, {...this.item})
+      if (rCon.solvable(this.item.code,this.item.rules)) {
+        if (!this.items[this.item.id]) {
+          this.items.push({...this.item});
+          this.$set(this.item, 'id', this.item.id+1);
+          this.$set(this.item, 'code', "00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000");
+          this.$set(this.item, 'svg', ["0","0","0","0","0","0","0","0","0"]);
+          this.$set(this.item, 'rules', {
+            add:[],
+            sub:[],
+            eka:[],
+            sm:[],
+            rot:[],
+            voll:[],
+          });
+          this.item = Object.assign({},this.item);
+        }
+        else{
+          this.$set(this.items, this.item.id, {...this.item})
+        }
       }
     },
     switchItem(val){
@@ -241,7 +244,7 @@ export default {
     itemDiff: function(){
       let rules = this.item.rules.add.length + this.item.rules.sub.length + this.item.rules.eka.length + this.item.rules.sm.length + this.item.rules.rot.length;
       if (this.item.rules.voll.length > 0) rules +=1;
-      console.log(rules/6);
+      // console.log(rules/6);
       
       return (rules/6)*100;
     },
