@@ -91,9 +91,9 @@
 
 <script>
 import Vue from 'vue';
-import collapse from "@/components/builder-components/collapsible.vue";
-import con from "@/components/builder-components/construction.vue";
-import drawer from "@/components/builder-components/item-drawer.vue";
+import collapse from "@/components/builder/collapsible.vue";
+import con from "@/components/builder/construction.vue";
+import drawer from "@/components/builder/item-drawer.vue";
 import {MdButton, MdProgress, MdSwitch} from 'vue-material/dist/components'
 import rCon from "@/assets/js/id-rule.js"
 import 'vue-material/dist/vue-material.min.css'

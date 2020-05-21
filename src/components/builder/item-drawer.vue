@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import mini from "@/components/builder-components/mini-item.vue";
+import mini from "@/components/builder/mini-item.vue";
 export default {
 components : {
     mini
