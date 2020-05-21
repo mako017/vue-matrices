@@ -102,6 +102,7 @@ Vue.use(MdButton)
 Vue.use(MdProgress)
 Vue.use(MdSwitch)
 export default {
+  name: 'builder',
   components: {
     collapse,
     con,
