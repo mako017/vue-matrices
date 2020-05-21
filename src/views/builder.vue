@@ -91,6 +91,7 @@
 
 <script>
 import Vue from 'vue';
+import COMM from '@/assets/js/communication.js'
 import collapse from "@/components/builder/collapsible.vue";
 import con from "@/components/builder/construction.vue";
 import drawer from "@/components/builder/item-drawer.vue";
@@ -195,7 +196,7 @@ export default {
       }
     },
     uploadItems(){
-
+      COMM.sendData(this.items, "insertAll");
     },
     exportAllSVG(){
       if (!this.settings.svg) return 0;
