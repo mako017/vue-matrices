@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import builder from '@/views/builder.vue'
 import home from '@/views/home.vue'
+import builder from '@/views/builder.vue'
+import database from '@/views/database.vue'
+import editor from '@/views/editor.vue'
 
 Vue.use(VueRouter)
 
@@ -16,14 +18,16 @@ Vue.use(VueRouter)
     name: 'Builder',
     component: builder
   },
-  // {
-  //   path: '/about',
-  //   name: 'About',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '@/components/builder.vue')
-  // }
+  {
+    path: '/database',
+    name: 'Database',
+    component: database
+  },
+  {
+    path: '/editor',
+    name: 'Editor',
+    component: editor
+  },
 ]
 
 const router = new VueRouter({

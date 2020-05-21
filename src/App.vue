@@ -10,6 +10,10 @@
   </div>
 </template>
 
+<script>
+require('@/assets/css/normal.css')
+</script>
+
 <style scoped>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
