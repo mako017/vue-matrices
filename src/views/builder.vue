@@ -75,7 +75,7 @@
           </div>
           <div class="side-buttons">
             <md-button class="md-raised" @click="exportAllSVG">Export Set</md-button>
-            <md-button class="md-raised">Upload Set</md-button>
+            <md-button class="md-raised" @click="uploadItems">Upload Set</md-button>
             <md-button class="md-raised" @click="console.log(0)">Print Test</md-button>
             <md-button class="md-raised" @click="exportCodes()">Export Itemcodes</md-button>
           </div>
@@ -193,6 +193,9 @@ export default {
       if ((+val === -1  && this.item.id > 0) | (+val === 1 && this.item.id < this.items.length-1)) {
         this.item = Object.assign({},this.items[this.item.id+(+val)]);
       }
+    },
+    uploadItems(){
+
     },
     exportAllSVG(){
       if (!this.settings.svg) return 0;

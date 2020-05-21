@@ -11,7 +11,7 @@
 </template>
 
 <script>
-require('@/assets/css/normal.css')
+  require('@/assets/css/normal.css')
 </script>
 
 <style scoped>
