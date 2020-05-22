@@ -60,6 +60,8 @@ td{
     width: 210px;
     margin: 5px auto;
     padding: 4%;
+    background-color: hsl(0, 0%, 89%);
+    box-shadow: 1px 2px 3px hsl(0, 0%, 30%) ;
 }
 
 .rule-grid{
