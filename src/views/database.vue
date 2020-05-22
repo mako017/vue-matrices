@@ -7,7 +7,8 @@
 </template>
 
 <script>
-import ItemCard from '@/components/database/mat-card.vue'
+import ItemCard from '@/components/database/mat-card.vue';
+import COMM from '@/assets/js/communication.js';
 
 export default {
     name : "database",
@@ -16,40 +17,19 @@ export default {
       Items : 
       [
         {
-          id : 1,
-          src : require('@/assets/img/blank.png'),
-          diff : ".85",
-          pwc : ".21",
-        },
-        {
-          id : 2,
-          src : require('@/assets/img/blank.png'),
-          diff : ".73",
-          pwc : ".32",
-        },
-        {
-          id : 3,
-          src : require('@/assets/img/blank.png'),
-          diff : ".73",
-          pwc : ".32",
-        },
-        {
-          id : 4,
-          src : require('@/assets/img/blank.png'),
-          diff : ".73",
-          pwc : ".32",
-        },
-        {
-          id : 5,
-          src : require('@/assets/img/blank.png'),
-          diff : ".73",
-          pwc : ".32",
-        },
-        {
-          id : 6,
-          src : require('@/assets/img/blank.png'),
-          diff : ".73",
-          pwc : ".32",
+          id : 0,
+          params : {
+            diff : 0.5,
+            pwc : 0.9,
+          },
+          rules : {
+            add : 1,
+            sub : 1,
+            eka : 0,
+            sm : 1,
+            rot : 0,
+            voll : 1,
+          },
         },
       ]
     }
@@ -57,6 +37,11 @@ export default {
     components : {
         ItemCard,
     },
+    async beforeMount(){
+      let response = await COMM.requestData("readAll");
+      console.log(response);
+      
+    }
 }
 </script>
 

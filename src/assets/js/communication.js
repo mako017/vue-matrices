@@ -11,6 +11,14 @@ class COMM {
     let response  = await axios.post(this.PHPDIR+"writeData.php", JSON.stringify(sendObj));
     console.log(response);
  }
+ static async requestData(code){
+    let sendObj = {
+        data:0,
+        code
+    }
+    let response  = await axios.post(this.PHPDIR+"readData.php", JSON.stringify(sendObj));
+    return response.data;
+ }
 }
 
 export default COMM;
