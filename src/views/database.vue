@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="responsive" v-for=" Item in Items" :key=Item.id>
         <ItemCard :Item="Item"/>
     </div>
@@ -48,6 +48,9 @@ export default {
 </script>
 
 <style scoped>
+.container{
+  min-height: 100vh;
+}
 .responsive {
   padding: 0 6px;
   float: left;

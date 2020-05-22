@@ -1,6 +1,6 @@
 <template>
   <div class="item-cont">
-      <itemSvg :code="Item.code.split(',')" />
+      <itemSvg :code="Item.code.split(',')" :id="Item.id" />
     <!-- <img :src="Item.src" :alt="'Item '+Item.id"> -->
     <hr class="vsep">
     <table>

@@ -1,14 +1,14 @@
 <template>
       <div class="container">
-        <svg viewBox="0 0 100 100" class="element" id="mat1"></svg>
-        <svg viewBox="0 0 100 100" class="element" id="mat2"></svg>
-        <svg viewBox="0 0 100 100" class="element" id="mat3"></svg>
-        <svg viewBox="0 0 100 100" class="element" id="mat4"></svg>
-        <svg viewBox="0 0 100 100" class="element" id="mat5"></svg>
-        <svg viewBox="0 0 100 100" class="element" id="mat6"></svg>
-        <svg viewBox="0 0 100 100" class="element" id="mat7"></svg>
-        <svg viewBox="0 0 100 100" class="element" id="mat8"></svg>
-        <svg viewBox="0 0 100 100" class="element" id="mat9"></svg>
+        <svg viewBox="0 0 100 100" class="element" v-bind:id="'i_' + id + '_mat1'"></svg>
+        <svg viewBox="0 0 100 100" class="element" v-bind:id="'i_' + id + '_mat2'"></svg>
+        <svg viewBox="0 0 100 100" class="element" v-bind:id="'i_' + id + '_mat3'"></svg>
+        <svg viewBox="0 0 100 100" class="element" v-bind:id="'i_' + id + '_mat4'"></svg>
+        <svg viewBox="0 0 100 100" class="element" v-bind:id="'i_' + id + '_mat5'"></svg>
+        <svg viewBox="0 0 100 100" class="element" v-bind:id="'i_' + id + '_mat6'"></svg>
+        <svg viewBox="0 0 100 100" class="element" v-bind:id="'i_' + id + '_mat7'"></svg>
+        <svg viewBox="0 0 100 100" class="element" v-bind:id="'i_' + id + '_mat8'"></svg>
+        <svg viewBox="0 0 100 100" class="element" v-bind:id="'i_' + id + '_mat9'"></svg>
     </div>
 </template>
 
@@ -17,12 +17,13 @@ import drawSVG from "@/assets/js/drawing.js"
 export default {
 props:{
     code: Array,
+    id: Number,
 },
 mounted(){
     for (let i = 0; i < 9; i++) {
-        drawSVG.clear("mat"+(i+1));
+        drawSVG.clear("i_" + this.id + "_mat"+(i+1));
         for (let j = 0; j < this.code[i].split('').length; j++) {
-            if (+this.code[i].split('')[j] === 1) drawSVG.select("mat"+(i+1),j)
+            if (+this.code[i].split('')[j] === 1) drawSVG.select("i_" + this.id + "_mat"+(i+1),j)
         }
     }
 }

@@ -4,7 +4,6 @@
       <router-link to="/builder">Builder</router-link> |
       <router-link to="/database">Database</router-link> |
       <router-link to="/editor">Editor</router-link>
-      <!-- <router-link to="/about">About</router-link> -->
     </div>
     <router-view/>
   </div>
@@ -16,7 +15,7 @@
 
 <style scoped>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -24,11 +23,13 @@
 
 #nav {
   padding: 30px;
+  font-size: 1.4rem;
+  background-color: #212121;
 }
 
 #nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #fff;
 }
 
 #nav a.router-link-exact-active {
