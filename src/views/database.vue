@@ -199,8 +199,4 @@ export default {
   justify-content: center;
   grid-template-columns: repeat(auto-fit, 230px);
 }
-.responsive {
-  padding: 0 6px;
-  margin: 0 auto;
-}
 </style>
