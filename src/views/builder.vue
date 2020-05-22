@@ -397,6 +397,10 @@ textarea{
   align-self: center;
 }
 
+.navbar{
+  display: none;
+}
+
 @media (max-width: 850px)
 {
   .control-menu, .help-menu, .main{
