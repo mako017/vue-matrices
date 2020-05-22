@@ -87,5 +87,6 @@ export default {
     background: hsl(0, 0%, 75%);
     border-bottom: 1px solid hsl(0, 0%, 70%);
     padding: .5rem 1rem;
+    text-align: left;
     }
 </style>

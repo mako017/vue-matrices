@@ -3,7 +3,7 @@
       <div class="help-menu" v-bind:class="{active:settings.activeView=='help'}">
         <h2 class="side-title">Hilfe</h2>
         <collapse v-for="item in help" :key="item.title" :item="item" />
-        <button id="reset" class="final-button" @click="resetItem">Zurücksetzen</button>
+        <button id="reset" class="final-button" @click="resetItem">Reset item</button>
       </div>
       <div class="main" v-bind:class="{active:settings.activeView=='construct'}">
         <div class="main-title">
@@ -17,10 +17,10 @@
       <div class="control-menu" v-bind:class="{active:settings.activeView=='settings'}">
         <h2 class="side-title">Control Panel</h2>
         <div class="side-container">
-          <h3>Angewandte Regeln</h3>
+          <h3>Used Rules</h3>
           <table class="rules-table" style="width:80%;">
             <thead>
-              <th>Regel</th>
+              <th>Rule</th>
               <th>Item</th>
               <th>Test</th>
             </thead>
@@ -36,12 +36,12 @@
                 <td>{{testRules.sub}}</td>
               </tr>
               <tr>
-                <td>EKA</td>
+                <td>DU</td>
                 <td>{{item.rules.eka.length}}</td>
                 <td>{{testRules.eka}}</td>
               </tr>
               <tr>
-                <td>SM</td>
+                <td>INT</td>
                 <td>{{item.rules.sm.length}}</td>
                 <td>{{testRules.sm}}</td>
               </tr>
@@ -51,7 +51,7 @@
                 <td>{{testRules.rot}}</td>
               </tr>
               <tr>
-                <td>VOLL</td>
+                <td>COM</td>
                 <td>{{item.rules.voll.length}}</td>
                 <td>{{testRules.voll}}</td>
               </tr>
@@ -59,7 +59,7 @@
           </table>
         </div>
         <div class="side-container">
-          <h3>Geschätzte Schwierigkeit</h3>
+          <h3>Estimated difficulty</h3>
           <div class="diff-grid">
             <span>Item</span>
             <span>Test</span>
@@ -68,7 +68,7 @@
           </div>
         </div>
         <div class="side-container">
-          <h3>Einstellungen</h3>
+          <h3>Settings</h3>
           <div class="export-settings">
             <md-switch v-model="settings.svg" class="md-primary">SVG</md-switch>
             <md-switch v-model="settings.pdf" class="md-primary">PDF</md-switch>
@@ -84,7 +84,7 @@
           <h3>Itemcode</h3>
           <textarea v-model="item.code" readonly></textarea>
         </div>
-        <button id="save-item" class="final-button" @click="saveItem">Item speichern</button>
+        <button id="save-item" class="final-button" @click="saveItem">Save item</button>
       </div>
       <div class="navbar">
           <span v-bind:class="{active:settings.activeView=='help'}" @click="settings.activeView = 'help'">Help</span>
@@ -119,27 +119,27 @@ export default {
       help: [
         {
           title: "Addition",
-          content: "In der dritten Zelle einer Reihe werden alle Symbole abgebildet, die auch in der ersten und zweiten Zelle vorhanden sind.",
+          content: "Elements of the first and second cell sum up in the third cell.",
         },
         {
-          title: "Subtraktion",
-          content: "Die Symbole der zweiten Zelle werden von den Symbolen der ersten Zelle entfernt. Die übrigen Symbole werden in der dritten Zelle abgebildet.",
+          title: "Subtraction",
+          content: "Elements in the second cell are removed from the elements in the first cell. The non-overlapping elements remain in the third cell.",
         },
         {
-          title: "Einzelkomponentenaddition",
-          content: "In der dritten Zelle einer Reihe werden alle Symbole abgebildet, die entweder in der ersten ODER in der zweiten Zelle vorhanden sind. Wenn ein Element in der ersten UND der zweiten Zelle vorhanden ist, so wird es in der dritten Zelle nicht abgebildet.",
+          title: "Disjunctive Union",
+          content: "Only elements that exist either in the first cell OR in the second cell are displayed in the third cell. Identical elements that are in the same position in the first AND second cell are not displayed in the third cell.",
         },
         {
-          title: "Schnittmenge",
-          content: "In der dritten Zelle einer Reihe werden alle Symbole abgebildet, die sowohl in der ersten als auch der zweiten Zelle enthalten sind.",
+          title: "Intersection",
+          content: "In the third cell of a row, only elements overlapping from the first and second cell are displayed.",
         },
         {
           title: "Rotation",
-          content: "Über die Reihe hinweg rotiert das Symbol. Dies kann sowohl im als auch gegen den Uhrzeigersinn geschehen. Die Rotation kann um 90° oder 180° geschehen.",
+          content: "The element rotates across the cells. The rotation is either clockwise or counterclockwise at an angle of either 90° or 180°.",
         },
         {
-          title: "Vollständigkeit",
-          content: "Die Symbole, auf die diese Regel angewandt wird, müssen in allen Zeilen vollständig enthalten sein.",
+          title: "Completeness",
+          content: "Each row/column must contain a specific set of elements.",
         },
       ],
       items :[],
