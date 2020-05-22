@@ -46,6 +46,7 @@ props : {
         cursor: pointer;
         transition: all 0.25s ease-out;
         width: 30%;
+        min-width: 150px;
         margin: auto;
         text-align: center;
         border-top-right-radius: 100%;
@@ -105,5 +106,12 @@ props : {
         border-bottom: 1px solid hsl(0, 0%, 70%);
         padding: .5rem 1rem;
         width: 100%;
+    }
+
+    @media (max-width: 850px)
+    {
+        .drawer{
+            bottom: 2rem;
+        }
     }
 </style>

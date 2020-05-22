@@ -1,11 +1,11 @@
 <template>
   <div class="builder">
-      <div class="help-menu">
+      <div class="help-menu" v-bind:class="{active:settings.activeView=='help'}">
         <h2 class="side-title">Hilfe</h2>
         <collapse v-for="item in help" :key="item.title" :item="item" />
         <button id="reset" class="final-button" @click="resetItem">Zurücksetzen</button>
       </div>
-      <div class="main">
+      <div class="main" v-bind:class="{active:settings.activeView=='construct'}">
         <div class="main-title">
             <svg @click="switchItem(-1)" viewBox="0 0 50 80" xml:space="preserve"><polyline stroke-linecap="round" stroke-linejoin="round" points="45.63,75.8 0.375,38.087 45.63,0.375 "/></svg> 
             <h2>{{itemCounter}}</h2>
@@ -14,7 +14,7 @@
         <con :item="item" />
         <drawer :items="items" />
       </div>
-      <div class="control-menu">
+      <div class="control-menu" v-bind:class="{active:settings.activeView=='settings'}">
         <h2 class="side-title">Control Panel</h2>
         <div class="side-container">
           <h3>Angewandte Regeln</h3>
@@ -86,6 +86,11 @@
         </div>
         <button id="save-item" class="final-button" @click="saveItem">Item speichern</button>
       </div>
+      <div class="navbar">
+          <span v-bind:class="{active:settings.activeView=='help'}" @click="settings.activeView = 'help'">Help</span>
+          <span v-bind:class="{active:settings.activeView=='construct'}" @click="settings.activeView = 'construct'">Construct</span>
+          <span v-bind:class="{active:settings.activeView=='settings'}" @click="settings.activeView = 'settings'">Settings</span>
+      </div>
   </div>
 </template>
 
@@ -154,6 +159,7 @@ export default {
       settings :{
         svg : true,
         pdf : false,
+        activeView : "construct"
       }
     }
   },
@@ -297,18 +303,16 @@ textarea{
     width: 100%;
     height: 100vh;
     background-color: hsl(0, 0%, 92%);
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
 }
 
 .help-menu{
-  width: 25%;
   border-right: 1px solid black;
   display: flex;
   flex-direction: column;
 }
 .main{
-  width: 50%;
   display: flex;
   flex-direction: column;
   padding: 1rem 0 0 0;
@@ -328,7 +332,6 @@ textarea{
   margin: 0 1.5rem;
 }
 .control-menu{
-  width: 25%;
   border-left: 1px solid black;
   display: flex;
   flex-direction: column;
@@ -372,14 +375,13 @@ textarea{
 }
 
 .diff-grid{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
 }
 
 .diff-grid > *{
-  width: 40%;
+  width: 80%;
   text-align: center;
   margin: 0.3rem 1rem;
 }
@@ -393,6 +395,40 @@ textarea{
 .rules-table{
   width: 80%;
   align-self: center;
+}
+
+@media (max-width: 850px)
+{
+  .control-menu, .help-menu, .main{
+    display: none;
+  }
+  .control-menu.active, .help-menu.active, .main.active{
+    display: flex;
+  }
+  .builder{
+    grid-template-columns: 1fr;
+  }
+  .navbar{
+    height: 2rem;
+    width: 100%;
+    background-color: #212121;
+    position: fixed;
+    bottom: 0;
+    color: #fff;
+    font-size: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+  }
+  .navbar:hover{
+    cursor: pointer;
+  }
+  .navbar span.active{
+    color: #42b983;
+  }
+  .final-button{
+    margin-bottom: 2rem;
+  }
 }
 
 </style>
