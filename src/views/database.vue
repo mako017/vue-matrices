@@ -1,9 +1,11 @@
 <template>
+<div class="root">
   <div class="container">
     <div class="responsive" v-for=" Item in Items" :key=Item.id>
         <ItemCard :Item="Item"/>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -192,8 +194,11 @@ export default {
 </script>
 
 <style scoped>
-.container{
+.root{
   min-height: 100vh;
+}
+
+.container{
   display: grid;
   align-items: center;
   justify-content: center;
