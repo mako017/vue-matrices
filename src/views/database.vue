@@ -18,6 +18,7 @@ export default {
       [
         {
           id : 0,
+          code: "01000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000",
           params : {
             diff : 0.5,
             pwc : 0.9,
@@ -40,6 +41,7 @@ export default {
     async beforeMount(){
       let response = await COMM.requestData("readAll");
       console.log(response);
+      this.Items = [...response];
       
     }
 }
