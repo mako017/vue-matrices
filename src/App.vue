@@ -5,12 +5,12 @@
       <router-link to="/database">Database</router-link> |
       <router-link to="/editor">Editor</router-link>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <script>
-  require('@/assets/css/normal.css')
+require("@/assets/css/normal.css");
 </script>
 
 <style scoped>
