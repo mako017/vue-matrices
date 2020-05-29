@@ -29,12 +29,12 @@ class rCon {
       this.getElements(rows[2]),
     ];
     let rules = {
-      add: 0,
-      sub: 0,
-      eka: 0,
-      sm: 0,
-      rot: 0,
-      voll: 0,
+      add: [],
+      sub: [],
+      eka: [],
+      sm: [],
+      rot: [],
+      voll: [],
     };
     rules.add = this.complete(this.isADD, relements);
     rules.sub = this.complete(this.isSUB, relements);
@@ -161,26 +161,26 @@ class rCon {
         )
       ) {
         if (
-          (relements[0][i].e1 === relements[1][i].e1) |
-            (relements[0][i].e1 === relements[1][i].e2) |
-            (relements[0][i].e1 === relements[1][i].e3) &&
-          (relements[0][i].e2 === relements[1][i].e1) |
-            (relements[0][i].e2 === relements[1][i].e2) |
-            (relements[0][i].e2 === relements[1][i].e3) &&
-          (relements[0][i].e3 === relements[1][i].e1) |
-            (relements[0][i].e3 === relements[1][i].e2) |
-            (relements[0][i].e3 === relements[1][i].e3)
+          relements[0][i].e1 === relements[1][i].e1 ||
+          relements[0][i].e1 === relements[1][i].e2 ||
+          (relements[0][i].e1 === relements[1][i].e3 &&
+            relements[0][i].e2 === relements[1][i].e1) ||
+          relements[0][i].e2 === relements[1][i].e2 ||
+          (relements[0][i].e2 === relements[1][i].e3 &&
+            relements[0][i].e3 === relements[1][i].e1) ||
+          relements[0][i].e3 === relements[1][i].e2 ||
+          relements[0][i].e3 === relements[1][i].e3
         ) {
           if (
-            (relements[0][i].e1 === relements[2][i].e1) |
-              (relements[0][i].e1 === relements[2][i].e2) |
-              (relements[0][i].e1 === relements[2][i].e3) &&
-            (relements[0][i].e2 === relements[2][i].e1) |
-              (relements[0][i].e2 === relements[2][i].e2) |
-              (relements[0][i].e2 === relements[2][i].e3) &&
-            (relements[0][i].e3 === relements[2][i].e1) |
-              (relements[0][i].e3 === relements[2][i].e2) |
-              (relements[0][i].e3 === relements[2][i].e3)
+            relements[0][i].e1 === relements[2][i].e1 ||
+            relements[0][i].e1 === relements[2][i].e2 ||
+            (relements[0][i].e1 === relements[2][i].e3 &&
+              relements[0][i].e2 === relements[2][i].e1) ||
+            relements[0][i].e2 === relements[2][i].e2 ||
+            (relements[0][i].e2 === relements[2][i].e3 &&
+              relements[0][i].e3 === relements[2][i].e1) ||
+            relements[0][i].e3 === relements[2][i].e2 ||
+            relements[0][i].e3 === relements[2][i].e3
           )
             el.push(i);
         }
@@ -220,6 +220,10 @@ class rCon {
     }
     return true;
   }
+  //
+  //test for duplicates
+
+  static testDuplicate = (code, codes) => codes.includes(code);
 }
 
 export default rCon;

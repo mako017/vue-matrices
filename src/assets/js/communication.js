@@ -25,6 +25,11 @@ class COMM {
     );
     return response.data;
   }
+
+  static async readCodes() {
+    let postData = await this.requestData("readCodes");
+    return postData;
+  }
 }
 
 export default COMM;

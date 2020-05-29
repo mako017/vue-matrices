@@ -1,19 +1,11 @@
 <template>
   <div class="builder">
-    <div
-      class="help-menu"
-      v-bind:class="{ active: settings.activeView == 'help' }"
-    >
+    <div class="help-menu" v-bind:class="{ active: settings.activeView == 'help' }">
       <h2 class="side-title">Hilfe</h2>
       <collapse v-for="item in help" :key="item.title" :item="item" />
-      <button id="reset" class="final-button" @click="resetItem">
-        Reset item
-      </button>
+      <button id="reset" class="final-button" @click="resetItem">Reset item</button>
     </div>
-    <div
-      class="main"
-      v-bind:class="{ active: settings.activeView == 'construct' }"
-    >
+    <div class="main" v-bind:class="{ active: settings.activeView == 'construct' }">
       <div class="main-title">
         <svg @click="switchItem(-1)" viewBox="0 0 50 80" xml:space="preserve">
           <polyline
@@ -34,10 +26,7 @@
       <con :item="item" />
       <drawer :items="items" />
     </div>
-    <div
-      class="control-menu"
-      v-bind:class="{ active: settings.activeView == 'settings' }"
-    >
+    <div class="control-menu" v-bind:class="{ active: settings.activeView == 'settings' }">
       <h2 class="side-title">Control Panel</h2>
       <div class="side-container">
         <h3>Used Rules</h3>
@@ -86,14 +75,8 @@
         <div class="diff-grid">
           <span>Item</span>
           <span>Test</span>
-          <md-progress-bar
-            class="md-accent"
-            :md-value="itemDiff"
-          ></md-progress-bar>
-          <md-progress-bar
-            class="md-accent"
-            :md-value="testRules.est"
-          ></md-progress-bar>
+          <md-progress-bar class="md-accent" :md-value="itemDiff"></md-progress-bar>
+          <md-progress-bar class="md-accent" :md-value="testRules.est"></md-progress-bar>
         </div>
       </div>
       <div class="side-container">
@@ -103,44 +86,31 @@
           <md-switch v-model="settings.pdf" class="md-primary">PDF</md-switch>
         </div>
         <div class="side-buttons">
-          <md-button class="md-raised" @click="exportAllSVG"
-            >Export Set</md-button
-          >
-          <md-button class="md-raised" @click="uploadItems"
-            >Upload Set</md-button
-          >
-          <md-button class="md-raised" @click="console.log(0)"
-            >Print Test</md-button
-          >
-          <md-button class="md-raised" @click="exportCodes()"
-            >Export Itemcodes</md-button
-          >
+          <md-button class="md-raised" @click="exportAllSVG">Export Set</md-button>
+          <md-button class="md-raised" @click="uploadItems">Upload Set</md-button>
+          <md-button class="md-raised" @click="console.log(0)">Print Test</md-button>
+          <md-button class="md-raised" @click="exportCodes()">Export Itemcodes</md-button>
         </div>
       </div>
       <div class="side-container">
         <h3>Itemcode</h3>
         <textarea v-model="item.code" readonly></textarea>
       </div>
-      <button id="save-item" class="final-button" @click="saveItem">
-        Save item
-      </button>
+      <button id="save-item" class="final-button" @click="saveItem">Save item</button>
     </div>
     <div class="navbar">
       <span
         v-bind:class="{ active: settings.activeView == 'help' }"
         @click="settings.activeView = 'help'"
-        >Help</span
-      >
+      >Help</span>
       <span
         v-bind:class="{ active: settings.activeView == 'construct' }"
         @click="settings.activeView = 'construct'"
-        >Construct</span
-      >
+      >Construct</span>
       <span
         v-bind:class="{ active: settings.activeView == 'settings' }"
         @click="settings.activeView = 'settings'"
-        >Settings</span
-      >
+      >Settings</span>
     </div>
   </div>
 </template>
@@ -167,6 +137,7 @@ export default {
   },
   data: function() {
     return {
+      onlineCodes: Array,
       help: [
         {
           title: "Addition",
@@ -230,6 +201,10 @@ export default {
       this.item = Object.assign({}, this.item);
     },
     saveItem() {
+      if (rCon.testDuplicate(this.item.code, this.onlineCodes)) {
+        alert("Dieses Item existiert schon");
+        return 1;
+      }
       if (rCon.solvable(this.item.code, this.item.rules)) {
         if (!this.items[this.item.id]) {
           this.items.push({ ...this.item });
@@ -383,6 +358,10 @@ export default {
         100;
       return rules;
     },
+  },
+  async beforeCreate() {
+    this.onlineCodes = await COMM.readCodes();
+    console.log(this.onlineCodes);
   },
 };
 </script>
