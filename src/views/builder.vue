@@ -2,25 +2,19 @@
   <div class="builder">
     <div class="help-menu" v-bind:class="{ active: settings.activeView == 'help' }">
       <h2 class="side-title">Hilfe</h2>
-      <collapse v-for="item in help" :key="item.title" :item="item" />
-      <button id="reset" class="final-button" @click="resetItem">Reset item</button>
+      <collapse v-for="item in allHelp" :key="item.title" :item="item" />
+      <button id="reset" class="final-button" @click="resetItem">
+        Reset item
+      </button>
     </div>
     <div class="main" v-bind:class="{ active: settings.activeView == 'construct' }">
       <div class="main-title">
         <svg @click="switchItem(-1)" viewBox="0 0 50 80" xml:space="preserve">
-          <polyline
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            points="45.63,75.8 0.375,38.087 45.63,0.375 "
-          />
+          <polyline stroke-linecap="round" stroke-linejoin="round" points="45.63,75.8 0.375,38.087 45.63,0.375 " />
         </svg>
         <h2>{{ itemCounter }}</h2>
         <svg @click="switchItem(1)" viewBox="0 0 50 80" xml:space="preserve">
-          <polyline
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            points="0.375,0.375 45.63,38.087 0.375,75.8 "
-          />
+          <polyline stroke-linecap="round" stroke-linejoin="round" points="0.375,0.375 45.63,38.087 0.375,75.8 " />
         </svg>
       </div>
       <con :item="item" />
@@ -96,27 +90,21 @@
         <h3>Itemcode</h3>
         <textarea v-model="item.code" readonly></textarea>
       </div>
-      <button id="save-item" class="final-button" @click="saveItem">Save item</button>
+      <button id="save-item" class="final-button" @click="saveItem">
+        Save item
+      </button>
     </div>
     <div class="navbar">
-      <span
-        v-bind:class="{ active: settings.activeView == 'help' }"
-        @click="settings.activeView = 'help'"
-      >Help</span>
-      <span
-        v-bind:class="{ active: settings.activeView == 'construct' }"
-        @click="settings.activeView = 'construct'"
-      >Construct</span>
-      <span
-        v-bind:class="{ active: settings.activeView == 'settings' }"
-        @click="settings.activeView = 'settings'"
-      >Settings</span>
+      <span v-bind:class="{ active: settings.activeView == 'help' }" @click="settings.activeView = 'help'">Help</span>
+      <span v-bind:class="{ active: settings.activeView == 'construct' }" @click="settings.activeView = 'construct'">Construct</span>
+      <span v-bind:class="{ active: settings.activeView == 'settings' }" @click="settings.activeView = 'settings'">Settings</span>
     </div>
   </div>
 </template>
 
 <script>
 import Vue from "vue";
+import { mapGetters } from "vuex";
 import COMM from "@/assets/js/communication.js";
 import collapse from "@/components/builder/collapsible.vue";
 import con from "@/components/builder/construction.vue";
@@ -138,37 +126,6 @@ export default {
   data: function() {
     return {
       onlineCodes: Array,
-      help: [
-        {
-          title: "Addition",
-          content:
-            "Elements of the first and second cell sum up in the third cell.",
-        },
-        {
-          title: "Subtraction",
-          content:
-            "Elements in the second cell are removed from the elements in the first cell. The non-overlapping elements remain in the third cell.",
-        },
-        {
-          title: "Disjunctive Union",
-          content:
-            "Only elements that exist either in the first cell OR in the second cell are displayed in the third cell. Identical elements that are in the same position in the first AND second cell are not displayed in the third cell.",
-        },
-        {
-          title: "Intersection",
-          content:
-            "In the third cell of a row, only elements overlapping from the first and second cell are displayed.",
-        },
-        {
-          title: "Rotation",
-          content:
-            "The element rotates across the cells. The rotation is either clockwise or counterclockwise at an angle of either 90° or 180°.",
-        },
-        {
-          title: "Completeness",
-          content: "Each row/column must contain a specific set of elements.",
-        },
-      ],
       items: [],
       item: {
         id: 0,
@@ -214,17 +171,7 @@ export default {
             "code",
             "00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000",
           );
-          this.$set(this.item, "svg", [
-            "0",
-            "0",
-            "0",
-            "0",
-            "0",
-            "0",
-            "0",
-            "0",
-            "0",
-          ]);
+          this.$set(this.item, "svg", ["0", "0", "0", "0", "0", "0", "0", "0", "0"]);
           this.$set(this.item, "rules", {
             add: [],
             sub: [],
@@ -249,10 +196,7 @@ export default {
         );
         this.item = Object.assign({}, this.item);
       }
-      if (
-        (+val === -1 && this.item.id > 0) |
-        (+val === 1 && this.item.id < this.items.length - 1)
-      ) {
+      if ((+val === -1 && this.item.id > 0) | (+val === 1 && this.item.id < this.items.length - 1)) {
         this.item = Object.assign({}, this.items[this.item.id + +val]);
       }
     },
@@ -265,19 +209,11 @@ export default {
         var svg = document.getElementById(id);
         var serializer = new XMLSerializer();
         var source = serializer.serializeToString(svg);
-        if (
-          !source.match(/^<svg[^>]+xmlns="http:\/\/www\.w3\.org\/2000\/svg"/)
-        ) {
-          source = source.replace(
-            /^<svg/,
-            '<svg xmlns="http://www.w3.org/2000/svg"',
-          );
+        if (!source.match(/^<svg[^>]+xmlns="http:\/\/www\.w3\.org\/2000\/svg"/)) {
+          source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
         }
         if (!source.match(/^<svg[^>]+"http:\/\/www\.w3\.org\/1999\/xlink"/)) {
-          source = source.replace(
-            /^<svg/,
-            '<svg xmlns:xlink="http://www.w3.org/1999/xlink"',
-          );
+          source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
         }
         source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
         var url = window.btoa(source);
@@ -314,16 +250,12 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(["allHelp"]),
     itemCounter: function() {
       return "Item " + (this.item.id + 1) + " von " + (this.items.length + 1);
     },
     itemDiff: function() {
-      let rules =
-        this.item.rules.add.length +
-        this.item.rules.sub.length +
-        this.item.rules.eka.length +
-        this.item.rules.sm.length +
-        this.item.rules.rot.length;
+      let rules = this.item.rules.add.length + this.item.rules.sub.length + this.item.rules.eka.length + this.item.rules.sm.length + this.item.rules.rot.length;
       if (this.item.rules.voll.length > 0) rules += 1;
       // console.log(rules/6);
 
@@ -347,15 +279,7 @@ export default {
         rules.rot += element.rules.rot.length;
         if (element.rules.voll.length > 0) rules.voll += 1;
       });
-      rules.est =
-        ((rules.add +
-          rules.sub +
-          rules.eka +
-          rules.sm +
-          rules.rot +
-          rules.voll) /
-          (6 * this.items.length)) *
-        100;
+      rules.est = ((rules.add + rules.sub + rules.eka + rules.sm + rules.rot + rules.voll) / (6 * this.items.length)) * 100;
       return rules;
     },
   },
