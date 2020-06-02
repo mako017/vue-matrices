@@ -1,8 +1,7 @@
 const state = {
   item: {
     id: 0,
-    code:
-      "00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000",
+    code: "00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000",
     svg: ["0", "0", "0", "0", "0", "0", "0", "0", "0"],
     rules: {
       add: [],
@@ -24,28 +23,23 @@ const state = {
   help: [
     {
       title: "Addition",
-      content:
-        "Elements of the first and second cell sum up in the third cell.",
+      content: "Elements of the first and second cell sum up in the third cell.",
     },
     {
       title: "Subtraction",
-      content:
-        "Elements in the second cell are removed from the elements in the first cell. The non-overlapping elements remain in the third cell.",
+      content: "Elements in the second cell are removed from the elements in the first cell. The non-overlapping elements remain in the third cell.",
     },
     {
       title: "Disjunctive Union",
-      content:
-        "Only elements that exist either in the first cell OR in the second cell are displayed in the third cell. Identical elements that are in the same position in the first AND second cell are not displayed in the third cell.",
+      content: "Only elements that exist either in the first cell OR in the second cell are displayed in the third cell. Identical elements that are in the same position in the first AND second cell are not displayed in the third cell.",
     },
     {
       title: "Intersection",
-      content:
-        "In the third cell of a row, only elements overlapping from the first and second cell are displayed.",
+      content: "In the third cell of a row, only elements overlapping from the first and second cell are displayed.",
     },
     {
       title: "Rotation",
-      content:
-        "The element rotates across the cells. The rotation is either clockwise or counterclockwise at an angle of either 90° or 180°.",
+      content: "The element rotates across the cells. The rotation is either clockwise or counterclockwise at an angle of either 90° or 180°.",
     },
     {
       title: "Completeness",
@@ -59,9 +53,27 @@ const getters = {
   currentItem: state => state.item,
 };
 
-const actions = {};
+const actions = {
+  updateItemCode({ commit }, { cell, el }) {
+    let codeArray = state.item.code.split(","); //split item code into array of nine strings
+    let cellCode = codeArray[cell].split(""); //split code of active cell into 20 characters
+    cellCode[el] = +!parseInt(cellCode[el]); //toggle selected element
+    codeArray[cell] = cellCode.join(""); //join the 20 characters
+    commit("updateItemCode", codeArray.join(",")); //join all 9 cells and commit the change
+  },
+  resetCellCode({ commit }, cell) {
+    let codeArray = state.item.code.split(",");
+    codeArray[cell] = "00000000000000000000";
+    commit("updateItemCode", codeArray.join(","));
+  },
+  resetItemCode({ commit }) {
+    commit("updateItemCode", "00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000");
+  },
+};
 
-const mutations = {};
+const mutations = {
+  updateItemCode: (state, code) => (state.item.code = code),
+};
 
 export default {
   state,

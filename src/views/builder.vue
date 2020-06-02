@@ -90,6 +90,9 @@
         <h3>Itemcode</h3>
         <textarea v-model="item.code" readonly></textarea>
       </div>
+      <div class="side-container">
+        <p>{{ currentItem }}</p>
+      </div>
       <button id="save-item" class="final-button" @click="saveItem">
         Save item
       </button>
@@ -104,7 +107,7 @@
 
 <script>
 import Vue from "vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import COMM from "@/assets/js/communication.js";
 import collapse from "@/components/builder/collapsible.vue";
 import con from "@/components/builder/construction.vue";
@@ -129,8 +132,7 @@ export default {
       items: [],
       item: {
         id: 0,
-        code:
-          "00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000",
+        code: "00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000",
         svg: ["0", "0", "0", "0", "0", "0", "0", "0", "0"],
         rules: {
           add: [],
@@ -149,13 +151,11 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["resetItemCode"]),
     resetItem() {
-      this.$set(
-        this.item,
-        "code",
-        "00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000",
-      );
+      this.$set(this.item, "code", "00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000");
       this.item = Object.assign({}, this.item);
+      this.resetItemCode();
     },
     saveItem() {
       if (rCon.testDuplicate(this.item.code, this.onlineCodes)) {
@@ -166,11 +166,7 @@ export default {
         if (!this.items[this.item.id]) {
           this.items.push({ ...this.item });
           this.$set(this.item, "id", this.item.id + 1);
-          this.$set(
-            this.item,
-            "code",
-            "00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000",
-          );
+          this.$set(this.item, "code", "00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000");
           this.$set(this.item, "svg", ["0", "0", "0", "0", "0", "0", "0", "0", "0"]);
           this.$set(this.item, "rules", {
             add: [],
@@ -189,11 +185,7 @@ export default {
     switchItem(val) {
       if (+val === 1 && this.item.id === this.items.length - 1) {
         this.$set(this.item, "id", this.item.id + 1);
-        this.$set(
-          this.item,
-          "code",
-          "00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000",
-        );
+        this.$set(this.item, "code", "00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000");
         this.item = Object.assign({}, this.item);
       }
       if ((+val === -1 && this.item.id > 0) | (+val === 1 && this.item.id < this.items.length - 1)) {
@@ -250,7 +242,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["allHelp"]),
+    ...mapGetters(["allHelp", "currentItem"]),
     itemCounter: function() {
       return "Item " + (this.item.id + 1) + " von " + (this.items.length + 1);
     },
@@ -310,7 +302,7 @@ textarea {
   height: 100vh;
   background-color: hsl(0, 0%, 92%);
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: 25% 50% 25%;
 }
 
 .help-menu {
