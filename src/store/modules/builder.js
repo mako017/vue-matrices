@@ -51,16 +51,11 @@ const state = {
 const getters = {
   allHelp: state => state.help,
   currentItem: state => state.item,
+  itemCodeArr: state => state.item.code.split(","),
 };
 
 const actions = {
-  updateItemCode({ commit }, { cell, el }) {
-    let codeArray = state.item.code.split(","); //split item code into array of nine strings
-    let cellCode = codeArray[cell].split(""); //split code of active cell into 20 characters
-    cellCode[el] = +!parseInt(cellCode[el]); //toggle selected element
-    codeArray[cell] = cellCode.join(""); //join the 20 characters
-    commit("updateItemCode", codeArray.join(",")); //join all 9 cells and commit the change
-  },
+  //Manipulate Item Code
   resetCellCode({ commit }, cell) {
     let codeArray = state.item.code.split(",");
     codeArray[cell] = "00000000000000000000";
@@ -69,10 +64,29 @@ const actions = {
   resetItemCode({ commit }) {
     commit("updateItemCode", "00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000");
   },
+  updateItemCode({ commit }, { cell, el }) {
+    let codeArray = state.item.code.split(","); //split item code into array of nine strings
+    let cellCode = codeArray[cell].split(""); //split code of active cell into 20 characters
+    cellCode[el] = +!parseInt(cellCode[el]); //toggle selected element
+    codeArray[cell] = cellCode.join(""); //join the 20 characters
+    commit("updateItemCode", codeArray.join(",")); //join all 9 cells and commit the change
+  },
+  //Manipulate Rules
+  setItemRules({ commit }, newRules) {
+    commit("updateItemRules", newRules);
+  },
+  //Manipulate SVG
+  setOneSvg({ commit }, { sel, svg }) {
+    let newSvg = state.item.svg;
+    newSvg[sel] = svg;
+    commit("updateItemSvg", newSvg);
+  },
 };
 
 const mutations = {
   updateItemCode: (state, code) => (state.item.code = code),
+  updateItemRules: (state, rules) => (state.item.rules = rules),
+  updateItemSvg: (state, svg) => (state.item.svg = svg),
 };
 
 export default {

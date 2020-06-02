@@ -51,13 +51,15 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["updateItemCode", "resetItemCode"]),
+    ...mapActions(["updateItemCode", "resetItemCode", "setItemRules", "setOneSvg"]),
     clear() {
+      //erledigt
       const cell = this.selection - 1;
       this.$set(this.code, cell, "00000000000000000000");
       this.resetCellCode(cell);
     },
     draw(el) {
+      //erledigt
       const cell = this.selection - 1;
       let helpArr = this.code[cell].split("");
       helpArr[el] = +!parseInt(helpArr[el]);
@@ -69,14 +71,25 @@ export default {
       this.selection = e.target.id[3];
     },
   },
-  computed: mapGetters(["currentItem"]),
+  computed: mapGetters(["currentItem", "itemCodeArr"]),
   mounted() {
     for (let i = 0; i < 20; i++) {
       drawSVG.select("el" + i, i);
     }
   },
   watch: {
+    // itemCodeArr: function() {
+    //   drawSVG.clear("mat" + this.selection);
+    //   for (let i = 0; i < this.itemCodeArr[this.selection - 1].split("").length; i++) {
+    //     if (+this.itemCodeArr[this.selection - 1].split("")[i] === 1) drawSVG.select("mat" + this.selection, i);
+    //   }
+    //   const sel = this.selection - 1;
+    //   const svg = drawSVG.getSvg("mat" + this.selection);
+    //   this.setOneSvg({ sel, svg });
+    //   this.setItemRules(rCon.fullTest(this.currentItem.code));
+    // },
     code: function() {
+      // erledigt, s.o.
       drawSVG.clear("mat" + this.selection);
       for (let i = 0; i < this.code[this.selection - 1].split("").length; i++) {
         if (+this.code[this.selection - 1].split("")[i] === 1) drawSVG.select("mat" + this.selection, i);

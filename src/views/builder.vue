@@ -156,7 +156,7 @@ export default {
       this.$set(this.item, "code", "00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000");
       this.item = Object.assign({}, this.item);
       this.resetItemCode();
-    },
+    }, //erledigt
     saveItem() {
       if (rCon.testDuplicate(this.item.code, this.onlineCodes)) {
         alert("Dieses Item existiert schon");
