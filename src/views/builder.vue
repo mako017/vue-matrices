@@ -120,7 +120,7 @@
 
 <script>
 import Vue from "vue";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 import COMM from "@/assets/js/communication.js";
 import collapse from "@/components/builder/collapsible.vue";
 import con from "@/components/builder/construction.vue";
@@ -165,7 +165,7 @@ export default {
 		};
 	},
 	methods: {
-		...mapActions(["resetItemCode", "pushItem", "downloadOnlinceCodes"]),
+		// ...mapActions(["resetItemCode", "pushItem", "downloadOnlinceCodes"]),
 		resetItem() {
 			this.$set(
 				this.item,
@@ -173,7 +173,7 @@ export default {
 				"00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000",
 			);
 			this.item = Object.assign({}, this.item);
-			this.resetItemCode();
+			// this.resetItemCode();
 		}, //erledigt
 		saveItem() {
 			// if (rCon.testDuplicate(this.item.code, this.onlineCodes)) {
@@ -203,7 +203,7 @@ export default {
 					this.$set(this.items, this.item.id, { ...this.item });
 				}
 			}
-			this.pushItem();
+			// this.pushItem();
 		}, //erledigt
 		switchItem(val) {
 			if (+val === 1 && this.item.id === this.items.length - 1) {
@@ -269,7 +269,8 @@ export default {
 		},
 	},
 	computed: {
-		...mapGetters(["allHelp", "allItems", "currentItem", "allOnlineCodes"]),
+		...mapGetters(["allHelp"]),
+		// ...mapGetters(["allHelp", "allItems", "currentItem", "allOnlineCodes"]),
 		itemCounter: function() {
 			return "Item " + (this.item.id + 1) + " von " + (this.items.length + 1);
 		},

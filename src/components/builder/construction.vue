@@ -120,7 +120,7 @@
 <script>
 import drawSVG from "@/assets/js/drawing.js";
 import rCon from "@/assets/js/id-rule.js";
-import { mapActions, mapGetters } from "vuex";
+// import { mapActions, mapGetters } from "vuex";
 export default {
 	props: {
 		item: Object,
@@ -132,7 +132,7 @@ export default {
 		};
 	},
 	methods: {
-		...mapActions(["updateItemCode", "resetItemCode", "setItemRules", "setOneSvg"]),
+		// ...mapActions(["updateItemCode", "resetItemCode", "setItemRules", "setOneSvg"]),
 		clear() {
 			//erledigt
 			const cell = this.selection - 1;
@@ -147,13 +147,13 @@ export default {
 			helpArr[el] = +!parseInt(helpArr[el]);
 			this.$set(this.code, cell, helpArr.join(""));
 
-			this.updateItemCode({ cell, el });
+			// this.updateItemCode({ cell, el });
 		},
 		setSelection(e) {
 			this.selection = e.target.id[3];
 		},
 	},
-	computed: mapGetters(["currentItem", "itemCodeArr"]),
+	// computed: mapGetters(["currentItem", "itemCodeArr"]),
 	mounted() {
 		for (let i = 0; i < 20; i++) {
 			drawSVG.select("el" + i, i);
