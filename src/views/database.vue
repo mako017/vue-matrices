@@ -1,215 +1,51 @@
 <template>
-  <div class="root">
-    <div class="container">
-      <div class="responsive" v-for="Item in Items" :key="Item.id">
-        <ItemCard :Item="Item" />
-      </div>
-    </div>
-  </div>
+	<div class="root">
+		<itemFilter />
+		<div class="container">
+			<div class="responsive" v-for="(Item, index) in allFilteredItems" :key="index">
+				<ItemCard :Item="Item" />
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
 import ItemCard from "@/components/database/mat-card.vue";
-import COMM from "@/assets/js/communication.js";
+// import COMM from "@/assets/js/communication.js";
+import itemFilter from "@/components/database/filter.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
-  name: "database",
-  data() {
-    return {
-      Items: [
-        {
-          id: 0,
-          code:
-            "01000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000",
-          params: {
-            diff: 0.5,
-            pwc: 0.9,
-          },
-          rules: {
-            add: 1,
-            sub: 1,
-            eka: 0,
-            sm: 1,
-            rot: 0,
-            voll: 1,
-          },
-        },
-        {
-          id: 0,
-          code:
-            "01000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000",
-          params: {
-            diff: 0.5,
-            pwc: 0.9,
-          },
-          rules: {
-            add: 1,
-            sub: 1,
-            eka: 0,
-            sm: 1,
-            rot: 0,
-            voll: 1,
-          },
-        },
-        {
-          id: 0,
-          code:
-            "01000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000",
-          params: {
-            diff: 0.5,
-            pwc: 0.9,
-          },
-          rules: {
-            add: 1,
-            sub: 1,
-            eka: 0,
-            sm: 1,
-            rot: 0,
-            voll: 1,
-          },
-        },
-        {
-          id: 0,
-          code:
-            "01000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000",
-          params: {
-            diff: 0.5,
-            pwc: 0.9,
-          },
-          rules: {
-            add: 1,
-            sub: 1,
-            eka: 0,
-            sm: 1,
-            rot: 0,
-            voll: 1,
-          },
-        },
-        {
-          id: 0,
-          code:
-            "01000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000",
-          params: {
-            diff: 0.5,
-            pwc: 0.9,
-          },
-          rules: {
-            add: 1,
-            sub: 1,
-            eka: 0,
-            sm: 1,
-            rot: 0,
-            voll: 1,
-          },
-        },
-        {
-          id: 0,
-          code:
-            "01000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000",
-          params: {
-            diff: 0.5,
-            pwc: 0.9,
-          },
-          rules: {
-            add: 1,
-            sub: 1,
-            eka: 0,
-            sm: 1,
-            rot: 0,
-            voll: 1,
-          },
-        },
-        {
-          id: 0,
-          code:
-            "01000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000",
-          params: {
-            diff: 0.5,
-            pwc: 0.9,
-          },
-          rules: {
-            add: 1,
-            sub: 1,
-            eka: 0,
-            sm: 1,
-            rot: 0,
-            voll: 1,
-          },
-        },
-        {
-          id: 0,
-          code:
-            "01000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000",
-          params: {
-            diff: 0.5,
-            pwc: 0.9,
-          },
-          rules: {
-            add: 1,
-            sub: 1,
-            eka: 0,
-            sm: 1,
-            rot: 0,
-            voll: 1,
-          },
-        },
-        {
-          id: 0,
-          code:
-            "01000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000",
-          params: {
-            diff: 0.5,
-            pwc: 0.9,
-          },
-          rules: {
-            add: 1,
-            sub: 1,
-            eka: 0,
-            sm: 1,
-            rot: 0,
-            voll: 1,
-          },
-        },
-        {
-          id: 0,
-          code:
-            "01000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000,00000000000000000000",
-          params: {
-            diff: 0.5,
-            pwc: 0.9,
-          },
-          rules: {
-            add: 1,
-            sub: 1,
-            eka: 0,
-            sm: 1,
-            rot: 0,
-            voll: 1,
-          },
-        },
-      ],
-    };
-  },
-  components: {
-    ItemCard,
-  },
-  async beforeMount() {
-    let response = await COMM.requestData("readAll");
-    console.log(response);
-    this.Items = [...response];
-  },
+	name: "database",
+	data() {
+		return {
+			Items: [],
+		};
+	},
+	components: {
+		ItemCard,
+		itemFilter,
+	},
+	methods: {
+		...mapActions(["downloadItems", "applyFilter", "setFilter"]),
+	},
+	computed: mapGetters(["allDbItems", "allFilteredItems"]),
+	async beforeMount() {
+		await this.downloadItems();
+		this.applyFilter();
+	},
 };
 </script>
 
 <style scoped>
 .root {
-  min-height: 100vh;
+	/* min-height: 100vh; */
 }
 
 .container {
-  display: grid;
-  align-items: center;
-  justify-content: center;
-  grid-template-columns: repeat(auto-fit, 230px);
+	display: grid;
+	align-items: center;
+	justify-content: center;
+	grid-template-columns: repeat(auto-fit, 230px);
 }
 </style>

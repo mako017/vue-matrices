@@ -176,10 +176,10 @@ export default {
 			// this.resetItemCode();
 		}, //erledigt
 		saveItem() {
-			// if (rCon.testDuplicate(this.item.code, this.onlineCodes)) {
-			// 	alert("Dieses Item existiert schon");
-			// 	return 1;
-			// }
+			if (rCon.testDuplicate(this.item.code, this.onlineCodes)) {
+				alert("Dieses Item existiert schon");
+				return 1;
+			}
 			if (
 				rCon.testDuplicate(
 					this.item.code,
@@ -228,8 +228,16 @@ export default {
 				this.item = Object.assign({}, this.items[this.item.id + +val]);
 			}
 		},
-		uploadItems() {
-			COMM.sendData(this.items, "insertAll");
+		async uploadItems() {
+			let upItems = [];
+			this.items.map(item => {
+				if (!rCon.testDuplicate(item.code, this.onlineCodes)) {
+					upItems.push({ ...item });
+				}
+			});
+			await COMM.sendData(upItems, "insertAll");
+			alert(`Uploaded ${upItems.length} Item(s)`);
+			this.onlineCodes = await COMM.readCodes();
 		},
 		exportAllSVG() {
 			if (!this.settings.svg) return 0;
