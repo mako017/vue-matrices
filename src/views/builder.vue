@@ -165,7 +165,7 @@ export default {
 		};
 	},
 	methods: {
-		...mapActions(["resetItemCode", "pushItem", "downloadOnlinceCodes", "pushItem"]),
+		...mapActions(["resetItemCode", "pushItem", "downloadOnlinceCodes"]),
 		resetItem() {
 			this.$set(
 				this.item,
@@ -176,10 +176,10 @@ export default {
 			this.resetItemCode();
 		}, //erledigt
 		saveItem() {
-			if (rCon.testDuplicate(this.item.code, this.onlineCodes)) {
-				alert("Dieses Item existiert schon");
-				return 1;
-			}
+			// if (rCon.testDuplicate(this.item.code, this.onlineCodes)) {
+			// 	alert("Dieses Item existiert schon");
+			// 	return 1;
+			// }
 			if (rCon.solvable(this.item.code, this.item.rules)) {
 				if (!this.items[this.item.id]) {
 					this.items.push({ ...this.item });
@@ -269,7 +269,7 @@ export default {
 		},
 	},
 	computed: {
-		...mapGetters(["allHelp", "currentItem", "allOnlineCodes"]),
+		...mapGetters(["allHelp", "allItems", "currentItem", "allOnlineCodes"]),
 		itemCounter: function() {
 			return "Item " + (this.item.id + 1) + " von " + (this.items.length + 1);
 		},
@@ -304,7 +304,7 @@ export default {
 	},
 	async beforeCreate() {
 		this.onlineCodes = await COMM.readCodes();
-		this.downloadOnlinceCodes();
+		// this.downloadOnlinceCodes();
 	},
 };
 </script>

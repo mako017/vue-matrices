@@ -48,6 +48,7 @@ const state = {
 
 const getters = {
 	allHelp: state => state.help,
+	allItems: state => state.items,
 	allOnlineCodes: state => state.onlineCodes,
 	currentItem: state => state.item,
 	itemCodeArr: state => state.item.code.split(","),
@@ -56,10 +57,10 @@ const getters = {
 const actions = {
 	// Manipulate Item Array
 	pushItem({ commit }) {
-		if (rCon.testDuplicate(state.item.code, state.onlineCodes)) {
-			alert("Dieses Item existiert schon");
-			return 1;
-		}
+		// if (rCon.testDuplicate(state.item.code, state.onlineCodes)) {
+		// 	alert("Dieses Item existiert schon");
+		// 	return 1;
+		// }
 		if (rCon.solvable(state.item.code, state.item.rules)) {
 			if (!state.items[state.item.id]) {
 				commit("pushItem");
@@ -89,6 +90,7 @@ const actions = {
 			},
 		};
 		commit("resetItem", item);
+		console.log(state.item);
 	},
 	resetCellCode({ commit }, cell) {
 		let codeArray = state.item.code.split(",");
@@ -126,7 +128,7 @@ const actions = {
 };
 
 const mutations = {
-	resetItem: (state, item) => (state.item = item),
+	resetItem: (state, item) => (state.item = { ...item }),
 	setOnlineCodes: (state, codes) => (state.onlineCodes = codes),
 	updateItemCode: (state, code) => (state.item.code = code),
 	updateItemRules: (state, rules) => (state.item.rules = rules),
