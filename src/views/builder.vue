@@ -180,6 +180,15 @@ export default {
 			// 	alert("Dieses Item existiert schon");
 			// 	return 1;
 			// }
+			if (
+				rCon.testDuplicate(
+					this.item.code,
+					this.items.map(item => item.code),
+				)
+			) {
+				alert("Dieses Item existiert schon");
+				return 1;
+			}
 			if (rCon.solvable(this.item.code, this.item.rules)) {
 				if (!this.items[this.item.id]) {
 					this.items.push({ ...this.item });
