@@ -67,4 +67,10 @@ export default {
 .root > * {
 	margin: 0.5% 1%;
 }
+@media (max-width: 850px) {
+	.root {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+}
 </style>
