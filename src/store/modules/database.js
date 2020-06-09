@@ -4,7 +4,15 @@ const state = {
 	FilteredItems: [],
 	Filter: {
 		id: 0,
-		rules: 1,
+		rules: 0,
+		singleRule: {
+			add: false,
+			sub: false,
+			eka: false,
+			sm: false,
+			rot: false,
+			voll: false,
+		},
 	},
 };
 
@@ -27,6 +35,13 @@ const actions = {
 		if (state.Filter.rules !== 0) {
 			Items = Items.filter(item => sumRules(item) === state.Filter.rules);
 		}
+		if (state.Filter.singleRule.add) Items = Items.filter(item => item.rules.add === 1);
+		if (state.Filter.singleRule.sub) Items = Items.filter(item => item.rules.sub === 1);
+		if (state.Filter.singleRule.eka) Items = Items.filter(item => item.rules.eka === 1);
+		if (state.Filter.singleRule.sm) Items = Items.filter(item => item.rules.sm === 1);
+		if (state.Filter.singleRule.rot) Items = Items.filter(item => item.rules.rot === 1);
+		if (state.Filter.singleRule.voll) Items = Items.filter(item => item.rules.voll === 1);
+
 		console.log(Items);
 		commit("mutateFilteredItems", Items);
 	},

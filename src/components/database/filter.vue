@@ -15,10 +15,35 @@
 				<option value="5">5</option>
 			</select>
 		</label>
+		<md-switch @change="updateFilter" v-model="getFilter.singleRule.add" class="md-primary">Addition</md-switch>
+		<md-switch
+			@change="updateFilter"
+			v-model="getFilter.singleRule.sub"
+			class="md-primary"
+		>Subtraction</md-switch>
+		<md-switch
+			@change="updateFilter"
+			v-model="getFilter.singleRule.eka"
+			class="md-primary"
+		>Disjunctive Union</md-switch>
+		<md-switch
+			@change="updateFilter"
+			v-model="getFilter.singleRule.sm"
+			class="md-primary"
+		>Intersection</md-switch>
+		<md-switch @change="updateFilter" v-model="getFilter.singleRule.rot" class="md-primary">Rotation</md-switch>
+		<md-switch
+			@change="updateFilter"
+			v-model="getFilter.singleRule.voll"
+			class="md-primary"
+		>Completeness</md-switch>
 	</div>
 </template>
 
 <script>
+import Vue from "vue";
+import { MdSwitch } from "vue-material/dist/components";
+Vue.use(MdSwitch);
 import { mapGetters, mapActions } from "vuex";
 export default {
 	name: "filter",
@@ -37,5 +62,9 @@ export default {
 .root {
 	display: flex;
 	flex-direction: row;
+	align-items: center;
+}
+.root > * {
+	margin: 0.5% 1%;
 }
 </style>
