@@ -47,61 +47,55 @@
 				>
 					<span>H3</span>
 				</button>
+
+				<button class="menubar__button" @click="commands.horizontal_rule">
+					<span>-</span>
+				</button>
+
+				<button class="menubar__button" @click="commands.undo">
+					<span>←</span>
+				</button>
+
+				<button class="menubar__button" @click="commands.redo">
+					<span>→</span>
+				</button>
+
+				<button class="menubar__button" @click="showImagePrompt(commands.image)">
+					<span>IMG</span>
+				</button>
 			</div>
 		</editor-menu-bar>
 		<editor-content class="editor-content" :editor="editor" />
-		<p>{{ html }}</p>
+		<button type="button">Save page</button>
+		<!-- <textarea v-model="html"></textarea> -->
+		<fullPagePreview :html="html" />
 	</div>
 </template>
 
 <script>
 import { Editor, EditorContent, EditorMenuBar } from "tiptap";
-import {
-	// Blockquote,
-	// CodeBlock,
-	// HardBreak,
-	Heading,
-	HorizontalRule,
-	// OrderedList,
-	// BulletList,
-	// ListItem,
-	// TodoItem,
-	// TodoList,
-	Bold,
-	// Code,
-	Italic,
-	Link,
-	Strike,
-	Underline,
-	History,
-} from "tiptap-extensions";
+import { Heading, HorizontalRule, Bold, Italic, Link, Strike, Underline, History, Image } from "tiptap-extensions";
+import fullPagePreview from "@/components/editor/fullPagePreview.vue";
 export default {
 	name: "editor",
 	components: {
 		EditorContent,
 		EditorMenuBar,
+		fullPagePreview,
 	},
 	data() {
 		return {
 			editor: new Editor({
 				extensions: [
-					// new Blockquote(),
-					// new BulletList(),
-					// new CodeBlock(),
-					// new HardBreak(),
 					new Heading({ levels: [1, 2, 3] }),
-					new HorizontalRule(), //
-					// new ListItem(),
-					// new OrderedList(),
-					// new TodoItem(),
-					// new TodoList(),
+					new HorizontalRule(),
 					new Link(), //
 					new Bold(),
-					// new Code(),
 					new Italic(),
 					new Strike(),
 					new Underline(),
-					new History(), //
+					new History(),
+					new Image(),
 				],
 				content: `<h1>Hello World</h1>`,
 				onUpdate: ({ getHTML }) => {
@@ -110,6 +104,14 @@ export default {
 			}),
 			html: "",
 		};
+	},
+	methods: {
+		showImagePrompt(command) {
+			const src = prompt("Enter the url of your image here");
+			if (src !== null) {
+				command({ src });
+			}
+		},
 	},
 	beforeDestroy() {
 		this.editor.destroy();
@@ -142,6 +144,11 @@ h1 {
 	margin-bottom: 2rem;
 	padding: 0.5rem;
 	box-shadow: 0 0 2px black inset;
+}
+
+.container > button {
+	align-self: center;
+	margin: 0.5rem 0;
 }
 
 .editor-content >>> strong {
