@@ -15,6 +15,7 @@ export default {
 .root {
 	width: 30vw;
 	height: 30vh;
+	padding: 0 20%;
 	box-shadow: 1px 1px red inset, -1px -1px red inset;
 	display: flex;
 	flex-direction: column;
@@ -24,6 +25,7 @@ export default {
 .root >>> p {
 	display: flex;
 	justify-content: center;
+	line-height: calc(1.1rem * 0.3);
 }
 
 .root >>> img {
@@ -55,5 +57,8 @@ export default {
 	font-size: calc(1.2rem * 0.3);
 	font-weight: 600;
 	margin: calc(1rem * 0.3) 0;
+}
+.root >>> hr {
+	width: 100%;
 }
 </style>

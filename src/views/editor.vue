@@ -66,22 +66,35 @@
 			</div>
 		</editor-menu-bar>
 		<editor-content class="editor-content" :editor="editor" />
-		<button type="button">Save page</button>
+		<button @click="savePage" type="button">Save page</button>
+		<hr />
+		<p>In the red box below you'll see a miniature preview of the instruction page you're working on. On a standard 16/9 fullHD monitor it should resemble the layout of the real instructions rather closely.</p>
 		<!-- <textarea v-model="html"></textarea> -->
-		<fullPagePreview :html="html" />
+		<fullPagePreview class="currenPreview" :html="html" />
+		<hr />
+		<h1>Test Design</h1>
+		<p>In the section below you will see all instructions in the order you wrote them. If you feel that a different order might be better, you can use the arrow buttons besides the preview to rearrange the instructions.</p>
+		<p>
+			With the
+			<b>Insert Test</b> button you can decide at which point you want to display the test.
+		</p>
+		<testLayout />
 	</div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import { Editor, EditorContent, EditorMenuBar } from "tiptap";
 import { Heading, HorizontalRule, Bold, Italic, Link, Strike, Underline, History, Image } from "tiptap-extensions";
 import fullPagePreview from "@/components/editor/fullPagePreview.vue";
+import testLayout from "@/components/editor/testLayout.vue";
 export default {
 	name: "editor",
 	components: {
 		EditorContent,
 		EditorMenuBar,
 		fullPagePreview,
+		testLayout,
 	},
 	data() {
 		return {
@@ -106,6 +119,11 @@ export default {
 		};
 	},
 	methods: {
+		...mapActions(["addPage"]),
+		savePage() {
+			this.addPage(this.html);
+			console.log(1);
+		},
 		showImagePrompt(command) {
 			const src = prompt("Enter the url of your image here");
 			if (src !== null) {
@@ -121,10 +139,20 @@ export default {
 
 <style scoped>
 h1 {
+	display: inline-block;
 	text-align: center;
 	font-size: 1.5rem;
 	font-weight: bold;
 	margin: 2rem 0;
+}
+hr {
+	width: 100%;
+	margin: 1rem 0;
+	display: inline-block;
+}
+.currenPreview {
+	margin-top: 1rem;
+	align-self: center;
 }
 
 .container {
