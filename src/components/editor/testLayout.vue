@@ -1,8 +1,8 @@
 <template>
 	<div class="root">
 		<div v-for="(page, index) in pages" :key="index" class="pageContainer">
-			<span class="up">↑</span>
-			<span class="down">↓</span>
+			<span @click="movePage(index,'up')" class="up">↑</span>
+			<span @click="movePage(index,'down')" class="down">↓</span>
 			<fullPagePreview :html="page" class="preview" />
 			<button type="button">Insert Test</button>
 		</div>
@@ -11,11 +11,12 @@
 
 <script>
 import fullPagePreview from "@/components/editor/fullPagePreview.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
 	components: {
 		fullPagePreview,
 	},
+	methods: mapActions(["movePage"]),
 	computed: mapGetters(["pages"]),
 };
 </script>
