@@ -3,7 +3,7 @@
 		<h1>Editor</h1>
 		<p>
 			With the controls below, you can freely build your own instructions and test design. Of course, if you have no need for changing any of our standardized instructions, you can always use our
-			instructions
+			instructions. We recommend that when you write your own instructions, you should try to avoid making the user scroll. The best user experience results from the user being able to read all information on a page without scrolling.
 		</p>
 		<editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
 			<div class="menubar">
@@ -187,12 +187,15 @@ hr {
 .editor-content >>> h1 {
 	font-size: 1.5rem;
 	font-weight: bold;
+	text-align: center;
 }
 .editor-content >>> h2 {
 	font-size: 1.2rem;
 	font-weight: bold;
+	text-align: center;
 }
 .editor-content >>> h3 {
 	font-weight: bold;
+	text-align: center;
 }
 </style>

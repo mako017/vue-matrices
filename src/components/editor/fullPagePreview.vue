@@ -1,5 +1,8 @@
 <template>
-	<div class="root" v-html="html"></div>
+	<div class="root">
+		<div v-html="html"></div>
+		<button>Continue</button>
+	</div>
 </template>
 
 <script>
@@ -20,6 +23,15 @@ export default {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	text-align: justify;
+	overflow: auto;
+}
+
+.root > button {
+	font-size: 0.3rem;
+	height: 0.5rem;
+	padding: 0;
+	margin: auto 0 0.2rem 0;
 }
 
 .root >>> p {
