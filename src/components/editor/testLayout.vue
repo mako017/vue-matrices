@@ -1,8 +1,9 @@
 <template>
 	<div class="root">
 		<div v-for="(page, index) in pages" :key="index" class="pageContainer">
-			<span @click="movePage(index,'up')" class="up">↑</span>
-			<span @click="movePage(index,'down')" class="down">↓</span>
+			<span @click="movePage({page:index,direction:'up'})" class="up">↑</span>
+			<span @click="deletePage(index)" class="del">X</span>
+			<span @click="movePage({page:index,direction:'down'})" class="down">↓</span>
 			<fullPagePreview :html="page" class="preview" />
 			<button type="button">Insert Test</button>
 		</div>
@@ -16,7 +17,7 @@ export default {
 	components: {
 		fullPagePreview,
 	},
-	methods: mapActions(["movePage"]),
+	methods: mapActions(["movePage", "deletePage"]),
 	computed: mapGetters(["pages"]),
 };
 </script>
@@ -31,10 +32,11 @@ export default {
 .pageContainer {
 	display: grid;
 	grid-template-columns: 2% 30vw;
-	grid-template-rows: 4fr 4fr 1fr;
+	grid-template-rows: 4fr 4fr 4fr 1fr;
 	grid-template-areas:
 		"up preview"
-		"do preview"
+		"del preview"
+		"down preview"
 		"button button";
 	align-items: center;
 	justify-items: center;
@@ -46,7 +48,8 @@ export default {
 }
 
 .pageContainer .up,
-.down {
+.down,
+.del {
 	justify-self: end;
 	font-size: 2rem;
 	border: 1px solid #acacac;
@@ -59,7 +62,10 @@ export default {
 	grid-area: up;
 }
 .pageContainer .down {
-	grid-area: do;
+	grid-area: down;
+}
+.pageContainer .del {
+	grid-area: del;
 }
 .pageContainer .preview {
 	grid-area: preview;

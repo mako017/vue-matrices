@@ -115,14 +115,13 @@ export default {
 					this.html = getHTML();
 				},
 			}),
-			html: "",
+			html: "<h1>Hello World</h1>",
 		};
 	},
 	methods: {
 		...mapActions(["addPage"]),
 		savePage() {
 			this.addPage(this.html);
-			console.log(1);
 		},
 		showImagePrompt(command) {
 			const src = prompt("Enter the url of your image here");

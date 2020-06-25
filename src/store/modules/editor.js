@@ -12,8 +12,13 @@ const actions = {
 		newPages.push(newPage);
 		commit("setPages", newPages);
 	},
-	movePage: ({ commit }, { page, direction }) => {
+	deletePage: ({ commit }, page) => {
 		let newPages = state.pages;
+		newPages.splice(page, 1);
+		commit("setPages", newPages);
+	},
+	movePage: ({ commit }, { page, direction }) => {
+		let newPages = [...state.pages];
 		switch (direction) {
 			case "up":
 				newPages[page - 1] = state.pages[page];
@@ -25,7 +30,6 @@ const actions = {
 				break;
 		}
 		commit("setPages", newPages);
-		console.log(state.pages);
 	},
 	setPages: ({ commit }, newPages) => {
 		commit("setPages", newPages);
