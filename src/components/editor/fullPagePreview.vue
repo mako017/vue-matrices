@@ -1,6 +1,6 @@
 <template>
 	<div class="root">
-		<div v-html="html"></div>
+		<div class="html-container" v-html="html"></div>
 		<button>Continue</button>
 	</div>
 </template>
@@ -20,11 +20,12 @@ export default {
 	height: 30vh;
 	padding: 0 20%;
 	box-shadow: 1px 1px red inset, -1px -1px red inset;
+	background-color: #fff;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	text-align: justify;
-	overflow: auto;
+	overflow-y: auto;
 }
 
 .root > button {
@@ -34,43 +35,52 @@ export default {
 	margin: auto 0 0.2rem 0;
 }
 
-.root >>> p {
-	display: flex;
-	justify-content: center;
+.html-container >>> p {
+	/* display: flex; */
+	/* justify-content: center; */
 	line-height: calc(1.1rem * 0.3);
 }
 
-.root >>> img {
-	align-self: center;
-	justify-self: center;
+.html-container >>> img {
 	max-height: calc(60vh * 0.3);
 	max-width: calc(80% * 0.3);
 }
 
-.root >>> p {
+.html-container >>> p {
 	margin: calc(0.5rem * 0.3) 0;
 	font-size: calc(1rem * 0.3);
+	text-align: justify;
 }
 
-.root >>> h1 {
+.html-container >>> h1 {
 	height: calc(2rem * 0.3);
 	font-size: calc(2rem * 0.3);
 	font-weight: 600;
 	margin: calc(2rem * 0.3) 0;
+	text-align: center;
 }
-.root >>> h2 {
+.html-container >>> h2 {
 	height: calc(1.5rem * 0.3);
 	font-size: calc(1.5rem * 0.3);
 	font-weight: 600;
 	margin: calc(1rem * 0.3) 0;
+	text-align: center;
 }
-.root >>> h3 {
+.html-container >>> h3 {
 	height: calc(1.2rem * 0.3);
 	font-size: calc(1.2rem * 0.3);
 	font-weight: 600;
 	margin: calc(1rem * 0.3) 0;
+	text-align: center;
 }
-.root >>> hr {
+.html-container >>> hr {
 	width: 100%;
+}
+
+.html-container >>> strong {
+	font-weight: bold;
+}
+.html-container >>> em {
+	font-style: italic;
 }
 </style>

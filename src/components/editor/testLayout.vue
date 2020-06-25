@@ -4,7 +4,7 @@
 			<span @click="movePage({page:index,direction:'up'})" class="up">↑</span>
 			<span @click="deletePage(index)" class="del">X</span>
 			<span @click="movePage({page:index,direction:'down'})" class="down">↓</span>
-			<fullPagePreview :html="page" class="preview" />
+			<fullPagePreview :html="page.html" class="preview" />
 			<button type="button">Insert Test</button>
 		</div>
 	</div>

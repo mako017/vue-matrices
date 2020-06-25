@@ -69,7 +69,7 @@
 		<button @click="savePage" type="button">Save page</button>
 		<hr />
 		<p>In the red box below you'll see a miniature preview of the instruction page you're working on. On a standard 16/9 fullHD monitor it should resemble the layout of the real instructions rather closely.</p>
-		<!-- <textarea v-model="html"></textarea> -->
+		<textarea v-model="html"></textarea>
 		<fullPagePreview class="currenPreview" :html="html" />
 		<hr />
 		<h1>Test Design</h1>
@@ -110,7 +110,7 @@ export default {
 					new History(),
 					new Image(),
 				],
-				content: `<h1>Hello World</h1>`,
+				content: `<h1>Instruction Page 1</h1><h2>How to use our instructions</h2><h3>Another even smaller header</h3><p>While we want you, to be able to customize all instructions, to your own needs, we can also understand that you might just want to use our pre made instructions. This is totally fine and <strong>you don't need to explicitly ask for our consent</strong>. <em>These instructions have been tested on several samples</em> in the past and have proven to be long enough so an <u>average</u> adult will understand the task at hand.</p><hr><h3>Custom instructions</h3><p>Of course, if you choose to use your own instructions, we want you to have access to the same tools we used. Thus you can freely write your own instructions with HTML and inline CSS. However, please understand that we can't guarantee that your handmade instructions will be displayed properly on all devices. Thus before sending the test link to your sample, make sure to test it on several devices, including smartphones, tablets and notebooks. Also different browsers may display your instructions differently and operating systems such as Android and iOS have differences, too.</p>`,
 				onUpdate: ({ getHTML }) => {
 					this.html = getHTML();
 				},
