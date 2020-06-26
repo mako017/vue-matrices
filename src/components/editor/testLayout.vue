@@ -4,20 +4,23 @@
 			<span @click="movePage({page:index,direction:'up'})" class="up">↑</span>
 			<span @click="deletePage(index)" class="del">X</span>
 			<span @click="movePage({page:index,direction:'down'})" class="down">↓</span>
-			<fullPagePreview :html="page.html" class="preview" />
-			<button type="button">Insert Test</button>
+			<fullPagePreview v-if="!page.isTest" :html="page.html" class="preview" />
+			<testPreview class="preview" v-else />
+			<button @click="addTest(index)" type="button">Insert Test</button>
 		</div>
 	</div>
 </template>
 
 <script>
 import fullPagePreview from "@/components/editor/fullPagePreview.vue";
+import testPreview from "@/components/editor/testPreview.vue";
 import { mapGetters, mapActions } from "vuex";
 export default {
 	components: {
 		fullPagePreview,
+		testPreview,
 	},
-	methods: mapActions(["movePage", "deletePage"]),
+	methods: mapActions(["movePage", "deletePage", "addTest"]),
 	computed: mapGetters(["pages"]),
 };
 </script>

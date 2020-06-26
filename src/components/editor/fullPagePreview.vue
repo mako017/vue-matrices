@@ -36,8 +36,6 @@ export default {
 }
 
 .html-container >>> p {
-	/* display: flex; */
-	/* justify-content: center; */
 	line-height: calc(1.1rem * 0.3);
 }
 

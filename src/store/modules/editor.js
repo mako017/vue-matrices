@@ -22,7 +22,19 @@ const getters = {
 const actions = {
 	addPage: ({ commit }, newPage) => {
 		let newPages = [...state.pages];
-		newPages.push(newPage);
+		newPages.push({
+			id: state.pages.length,
+			isTest: false,
+			html: newPage,
+		});
+		commit("setPages", newPages);
+	},
+	addTest: ({ commit }, page) => {
+		let newPages = [...state.pages];
+		newPages.splice(page + 1, 0, {
+			id: state.pages.length,
+			isTest: true,
+		});
 		commit("setPages", newPages);
 	},
 	deletePage: ({ commit }, page) => {
