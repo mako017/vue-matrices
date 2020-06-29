@@ -354,6 +354,7 @@ textarea {
 	border-right: 1px solid black;
 	display: flex;
 	flex-direction: column;
+	overflow-y: auto;
 }
 .main {
 	display: flex;

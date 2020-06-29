@@ -3,7 +3,8 @@
 		<h1>Editor</h1>
 		<p>
 			With the controls below, you can freely build your own instructions and test design. Of course, if you have no need for changing any of our standardized instructions, you can always use our
-			instructions. We recommend that when you write your own instructions, you should try to avoid making the user scroll. The best user experience results from the user being able to read all information on a page without scrolling.
+			instructions. We recommend that when you write your own instructions, you should try to avoid making the user scroll. The best user experience results from the user being able to read all
+			information on a page without scrolling.
 		</p>
 		<editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
 			<div class="menubar">
@@ -27,24 +28,15 @@
 						<u>U</u>
 					</span>
 				</button>
-				<button
-					:class="{ 'is-active': isActive.heading({ level: 1 }) }"
-					@click="commands.heading({ level: 1 })"
-				>
+				<button :class="{ 'is-active': isActive.heading({ level: 1 }) }" @click="commands.heading({ level: 1 })">
 					<span>H1</span>
 				</button>
 
-				<button
-					:class="{ 'is-active': isActive.heading({ level: 2 }) }"
-					@click="commands.heading({ level: 2 })"
-				>
+				<button :class="{ 'is-active': isActive.heading({ level: 2 }) }" @click="commands.heading({ level: 2 })">
 					<span>H2</span>
 				</button>
 
-				<button
-					:class="{ 'is-active': isActive.heading({ level: 3 }) }"
-					@click="commands.heading({ level: 3 })"
-				>
+				<button :class="{ 'is-active': isActive.heading({ level: 3 }) }" @click="commands.heading({ level: 3 })">
 					<span>H3</span>
 				</button>
 
@@ -68,12 +60,20 @@
 		<editor-content class="editor-content" :editor="editor" />
 		<button @click="savePage" type="button">Save page</button>
 		<hr />
-		<p>In the red box below you'll see a miniature preview of the instruction page you're working on. On a standard 16/9 fullHD monitor it should resemble the layout of the real instructions rather closely.</p>
+		<p>
+			In the red box below you'll see a miniature preview of the instruction page you're working on. On a standard 16/9 fullHD monitor it should resemble the layout of the real instructions rather
+			closely.
+		</p>
 		<textarea v-model="html"></textarea>
-		<fullPagePreview class="currenPreview" :html="html" />
+		<div class="pageContainer">
+			<fullPagePreview :html="html" />
+		</div>
 		<hr />
 		<h1>Test Design</h1>
-		<p>In the section below you will see all instructions in the order you wrote them. If you feel that a different order might be better, you can use the arrow buttons besides the preview to rearrange the instructions.</p>
+		<p>
+			In the section below you will see all instructions in the order you wrote them. If you feel that a different order might be better, you can use the arrow buttons besides the preview to rearrange
+			the instructions.
+		</p>
 		<p>
 			With the
 			<b>Insert Test</b> button you can decide at which point you want to display the test.
@@ -150,7 +150,8 @@ hr {
 	margin: 1rem 0;
 	display: inline-block;
 }
-.currenPreview {
+.pageContainer {
+	width: 30vw;
 	margin-top: 1rem;
 	align-self: center;
 }

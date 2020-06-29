@@ -21,27 +21,33 @@ const state = {
 		{
 			title: "Addition",
 			content: "Elements of the first and second cell sum up in the third cell.",
+			img: require("@/assets/img/exAdd.svg"),
 		},
 		{
 			title: "Subtraction",
 			content: "Elements in the second cell are removed from the elements in the first cell. The non-overlapping elements remain in the third cell.",
+			img: require("@/assets/img/exSub.svg"),
 		},
 		{
 			title: "Disjunctive Union",
 			content:
 				"Only elements that exist either in the first cell OR in the second cell are displayed in the third cell. Identical elements that are in the same position in the first AND second cell are not displayed in the third cell.",
+			img: require("@/assets/img/exDisjunct.svg"),
 		},
 		{
 			title: "Intersection",
 			content: "In the third cell of a row, only elements overlapping from the first and second cell are displayed.",
+			img: require("@/assets/img/exInter.svg"),
 		},
 		{
 			title: "Rotation",
 			content: "The element rotates across the cells. The rotation is either clockwise or counterclockwise at an angle of either 90° or 180°.",
+			img: require("@/assets/img/exRot.svg"),
 		},
 		{
 			title: "Completeness",
 			content: "Each row/column must contain a specific set of elements.",
+			img: require("@/assets/img/exComp.svg"),
 		},
 	],
 };
