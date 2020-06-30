@@ -1,14 +1,18 @@
 import MD5 from "crypto-js/md5";
 import COMM from "@/assets/js/communication.js";
 const state = {
-	user: localStorage.getItem("userCredentials") || {
+	user: JSON.parse(localStorage.getItem("userCredentials")) || {
 		name: "guest",
 		authenticated: false,
 		status: "guest",
 	},
 };
 
-const getters = {};
+const getters = {
+	isAuthenticated: state => state.user.authenticated,
+	userName: state => state.user.name,
+	userStatus: state => state.user.status,
+};
 
 const actions = {
 	userLogin: async ({ commit }, { user, pw }) => {
@@ -19,7 +23,7 @@ const actions = {
 		console.log(hashUser);
 		let response = await COMM.auth(hashUser, "login");
 		commit("setUser", response);
-		localStorage.setItem("userCredentials", state.user);
+		localStorage.setItem("userCredentials", JSON.stringify(state.user));
 		console.log(state.user);
 	},
 	userLogout: ({ commit }) => {

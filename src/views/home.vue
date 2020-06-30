@@ -1,6 +1,6 @@
 <template>
 	<div class="home">
-		<div class="login">
+		<div v-if="!isAuthenticated" class="login">
 			<label class="login-user">
 				User
 				<input type="text" v-model="user" />
@@ -10,6 +10,9 @@
 				<input type="password" v-model="pw" />
 			</label>
 			<button @click="userLogin({ user, pw })" class="login-btn" type="button">Login</button>
+		</div>
+		<div v-if="isAuthenticated" class="logout">
+			<button @click="userLogout" type="button">Log Out</button>
 		</div>
 		<div>
 			<p>A description of the project will follow soon</p>
@@ -34,9 +37,7 @@
 				<dd>Show the clicked symbols in the response field or not</dd>
 
 				<dt>Use URL parameters</dt>
-				<dd>
-					Match participants by using custom URL parameters (e.g. ?p= for the participant code)
-				</dd>
+				<dd>Match participants by using custom URL parameters (e.g. ?p= for the participant code)</dd>
 
 				<dt>Flexible data export</dt>
 				<dd>Export raw data or request 1/0 coded response data</dd>
@@ -46,7 +47,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
 	name: "home",
 	data() {
@@ -56,8 +57,9 @@ export default {
 		};
 	},
 	methods: {
-		...mapActions(["userLogin"]),
+		...mapActions(["userLogin", "userLogout"]),
 	},
+	computed: mapGetters(["isAuthenticated"]),
 };
 </script>
 
@@ -94,6 +96,9 @@ dd::before {
 		"user pw"
 		"btn btn";
 	gap: 0.7rem;
+}
+.logout {
+	margin: 1rem 0;
 }
 .login-user {
 	grid-area: user;
