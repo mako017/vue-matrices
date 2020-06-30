@@ -1,6 +1,7 @@
 import COMM from "@/assets/js/communication.js";
 const state = {
 	Items: [],
+	ItemChunks: [],
 	FilteredItems: [],
 	Filter: {
 		id: 0,
@@ -20,10 +21,11 @@ const getters = {
 	getFilter: state => state.Filter,
 	allDbItems: state => state.Items,
 	allFilteredItems: state => state.FilteredItems,
+	itemChunks: state => state.ItemChunks,
 };
 
 const actions = {
-	applyFilter({ commit }) {
+	applyFilter({ commit, dispatch }) {
 		let Items = [...state.Items];
 		const sumRules = item => item.rules.add + item.rules.sub + item.rules.eka + item.rules.sm + item.rules.rot + item.rules.voll;
 
@@ -42,8 +44,16 @@ const actions = {
 		if (state.Filter.singleRule.rot) Items = Items.filter(item => item.rules.rot === 1);
 		if (state.Filter.singleRule.voll) Items = Items.filter(item => item.rules.voll === 1);
 
-		console.log(Items);
 		commit("mutateFilteredItems", Items);
+		dispatch("chunkFilter");
+	},
+	chunkFilter({ commit }) {
+		const bigChunk = [...state.FilteredItems];
+		let smallChunks = [];
+		while (bigChunk.length > 0) {
+			smallChunks.push(bigChunk.splice(0, 25));
+		}
+		commit("mutateItemChunks", smallChunks);
 	},
 	async downloadItems({ commit }) {
 		let response = await COMM.requestData("readAll");
@@ -58,6 +68,7 @@ const mutations = {
 	mutateFilter: (state, filter) => (state.Filter = { ...filter }),
 	mutateFilteredItems: (state, Items) => (state.FilteredItems = [...Items]),
 	mutateItems: (state, Items) => (state.Items = [...Items]),
+	mutateItemChunks: (state, chunks) => (state.ItemChunks = chunks),
 };
 
 export default {
