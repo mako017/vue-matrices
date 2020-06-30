@@ -1,5 +1,5 @@
 <template>
-	<div class="item-cont">
+	<div class="item-cont" v-bind:class="{selected:selectedItems.includes(Item.id)}">
 		<itemSvg :code="Item.code.split(',')" :id="Item.id" />
 		<!-- <img :src="Item.src" :alt="'Item '+Item.id"> -->
 		<hr class="vsep" />
@@ -88,22 +88,35 @@
 				/>
 			</svg>
 		</div>
-		<button @click="chunkFilter" class="selectBtn" type="button">Select</button>
+		<button @click="selectItem(Item.id)" class="selectBtn" type="button">Select</button>
 	</div>
 </template>
 
 <script>
 import itemSvg from "@/components/database/item.vue";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
+
 export default {
 	name: "mat-card",
+	data() {
+		return {
+			isSelected: false,
+		};
+	},
 	props: {
 		Item: Object,
 	},
 	components: {
 		itemSvg,
 	},
-	methods: mapActions(["chunkFilter"]),
+	methods: {
+		itemID(id) {
+			console.log(id);
+			this.isSelected = !this.isSelected;
+		},
+		...mapActions(["selectItem"]),
+	},
+	computed: mapGetters(["selectedItems"]),
 };
 </script>
 
@@ -155,5 +168,8 @@ td {
 
 .green {
 	fill: #0f0;
+}
+.selected {
+	border-color: #0f0;
 }
 </style>

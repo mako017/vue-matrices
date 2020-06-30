@@ -13,10 +13,12 @@ const state = {
 				"<h1>Instruction Page 2</h1><p>Explaining a figural matrices task without the use of images can be quite challenging. Thus you can obviously use images for your instructions, too. The way this works is that you provide the software with a link to an image that can be accessed from anywhere on the internet. This link will be entered below the text and displayed centered on the page.</p><img src='https://lets-test.it/matls/1.png'><p>Sometimes being unable to put the image above the text might feel very limiting, thus we also provide the option to add text belows the image. If you continue to the next page, you will be presented with our standard instructions. Once you've finished them, an example test with 5 easy items will follow. As this is just a demonstration of what can be done with our software <strong>no data will be save</strong>d.</p>",
 		},
 	],
+	selectedItems: [],
 };
 
 const getters = {
 	pages: state => state.pages,
+	selectedItems: state => state.selectedItems,
 };
 
 const actions = {
@@ -56,6 +58,14 @@ const actions = {
 		}
 		commit("setPages", newPages);
 	},
+	selectItem: ({ commit }, id) => {
+		let newSelection = [...state.selectedItems];
+
+		if (!newSelection.includes(id)) newSelection.push(id);
+		else newSelection = newSelection.filter(el => el !== id);
+
+		commit("setSelectedItems", newSelection);
+	},
 	setPages: ({ commit }, newPages) => {
 		commit("setPages", newPages);
 	},
@@ -63,6 +73,7 @@ const actions = {
 
 const mutations = {
 	setPages: (state, newPages) => (state.pages = newPages),
+	setSelectedItems: (state, newSelection) => (state.selectedItems = newSelection),
 };
 
 export default {

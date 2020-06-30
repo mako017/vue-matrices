@@ -46,6 +46,7 @@ const actions = {
 
 		commit("mutateFilteredItems", Items);
 		dispatch("chunkFilter");
+		console.log(state.Items);
 	},
 	chunkFilter({ commit }) {
 		const bigChunk = [...state.FilteredItems];
