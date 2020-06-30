@@ -48,13 +48,9 @@ const actions = {
 	async downloadItems({ commit }) {
 		let response = await COMM.requestData("readAll");
 		commit("mutateItems", response);
-		// console.log(state.Items);
-
-		// actions.applyFilter();
 	},
 	setFilter({ commit }, filter) {
 		commit("mutateFilter", filter);
-		// actions.applyFilter();
 	},
 };
 

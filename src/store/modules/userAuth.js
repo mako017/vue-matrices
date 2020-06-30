@@ -1,11 +1,14 @@
 import MD5 from "crypto-js/md5";
 import COMM from "@/assets/js/communication.js";
+const guestUser = {
+	id: null,
+	name: "guest",
+	authenticated: false,
+	status: "guest",
+};
+
 const state = {
-	user: JSON.parse(localStorage.getItem("userCredentials")) || {
-		name: "guest",
-		authenticated: false,
-		status: "guest",
-	},
+	user: JSON.parse(localStorage.getItem("userCredentials")) || guestUser,
 };
 
 const getters = {
@@ -27,12 +30,7 @@ const actions = {
 		console.log(state.user);
 	},
 	userLogout: ({ commit }) => {
-		const guest = {
-			name: "guest",
-			authenticated: false,
-			status: "guest",
-		};
-		commit("setUser", guest);
+		commit("setUser", guestUser);
 		localStorage.removeItem("userCredentials");
 	},
 };

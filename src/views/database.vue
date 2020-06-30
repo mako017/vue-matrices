@@ -38,10 +38,6 @@ export default {
 </script>
 
 <style scoped>
-.root {
-	/* height: 100vh; */
-}
-
 .container {
 	display: grid;
 	align-items: center;
