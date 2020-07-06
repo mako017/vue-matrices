@@ -1,6 +1,6 @@
 <template>
 	<div class="container">
-		<h1>Editor</h1>
+		<h1 @click="finalizeTest">Editor</h1>
 		<p>
 			With the controls below, you can freely build your own instructions and test design. Of course, if you have no need for changing any of our standardized instructions, you can always use our
 			instructions. We recommend that when you write your own instructions, you should try to avoid making the user scroll. The best user experience results from the user being able to read all
@@ -28,15 +28,24 @@
 						<u>U</u>
 					</span>
 				</button>
-				<button :class="{ 'is-active': isActive.heading({ level: 1 }) }" @click="commands.heading({ level: 1 })">
+				<button
+					:class="{ 'is-active': isActive.heading({ level: 1 }) }"
+					@click="commands.heading({ level: 1 })"
+				>
 					<span>H1</span>
 				</button>
 
-				<button :class="{ 'is-active': isActive.heading({ level: 2 }) }" @click="commands.heading({ level: 2 })">
+				<button
+					:class="{ 'is-active': isActive.heading({ level: 2 }) }"
+					@click="commands.heading({ level: 2 })"
+				>
 					<span>H2</span>
 				</button>
 
-				<button :class="{ 'is-active': isActive.heading({ level: 3 }) }" @click="commands.heading({ level: 3 })">
+				<button
+					:class="{ 'is-active': isActive.heading({ level: 3 }) }"
+					@click="commands.heading({ level: 3 })"
+				>
 					<span>H3</span>
 				</button>
 
@@ -83,7 +92,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { Editor, EditorContent, EditorMenuBar } from "tiptap";
 import { Heading, HorizontalRule, Bold, Italic, Link, Strike, Underline, History, Image } from "tiptap-extensions";
 import fullPagePreview from "@/components/editor/fullPagePreview.vue";
@@ -120,9 +129,16 @@ export default {
 		};
 	},
 	methods: {
-		...mapActions(["addPage"]),
+		...mapActions(["addPage", "uploadTest"]),
 		savePage() {
 			this.addPage(this.html);
+		},
+		finalizeTest() {
+			if (!this.isAuthenticated) {
+				alert("This function is only available for registered users.");
+				return 0;
+			}
+			this.uploadTest(this.userName);
 		},
 		showImagePrompt(command) {
 			const src = prompt("Enter the url of your image here");
@@ -131,6 +147,7 @@ export default {
 			}
 		},
 	},
+	computed: mapGetters(["isAuthenticated", "userName"]),
 	beforeDestroy() {
 		this.editor.destroy();
 	},

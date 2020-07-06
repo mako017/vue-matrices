@@ -1,3 +1,4 @@
+import COMM from "@/assets/js/communication.js";
 const state = {
 	pages: [
 		{
@@ -14,6 +15,7 @@ const state = {
 		},
 	],
 	selectedItems: [],
+	settings: {},
 };
 
 const getters = {
@@ -65,9 +67,20 @@ const actions = {
 		else newSelection = newSelection.filter(el => el !== id);
 
 		commit("setSelectedItems", newSelection);
+		console.log(state.selectedItems);
 	},
 	setPages: ({ commit }, newPages) => {
 		commit("setPages", newPages);
+	},
+	uploadTest: ({ commit }, user) => {
+		let testContent = {
+			creator: user,
+			pages: JSON.stringify(state.pages),
+			items: JSON.stringify(state.selectedItems),
+			settings: JSON.stringify(state.settings),
+		};
+		COMM.sendData(testContent, "newTest");
+		commit("bla", 0);
 	},
 };
 
