@@ -1,7 +1,6 @@
 <template>
-	<div class="item-cont" v-bind:class="{selected:selectedItems.includes(Item.id)}">
+	<div class="item-cont" v-bind:class="{selected:selectedItems.includes(Item)}">
 		<itemSvg :code="Item.code.split(',')" :id="Item.id" />
-		<!-- <img :src="Item.src" :alt="'Item '+Item.id"> -->
 		<hr class="vsep" />
 		<table>
 			<tbody>
@@ -88,7 +87,7 @@
 				/>
 			</svg>
 		</div>
-		<button @click="selectItem(Item.id)" class="selectBtn" type="button">Select</button>
+		<button @click="selectItem(Item)" class="selectBtn" type="button">Select</button>
 	</div>
 </template>
 

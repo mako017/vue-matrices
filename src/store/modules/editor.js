@@ -60,14 +60,13 @@ const actions = {
 		}
 		commit("setPages", newPages);
 	},
-	selectItem: ({ commit }, id) => {
+	selectItem: ({ commit }, item) => {
 		let newSelection = [...state.selectedItems];
 
-		if (!newSelection.includes(id)) newSelection.push(id);
-		else newSelection = newSelection.filter(el => el !== id);
+		if (!newSelection.includes(item)) newSelection.push(item);
+		else newSelection = newSelection.filter(el => el !== item);
 
 		commit("setSelectedItems", newSelection);
-		console.log(state.selectedItems);
 	},
 	setPages: ({ commit }, newPages) => {
 		commit("setPages", newPages);
