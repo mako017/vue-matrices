@@ -44,6 +44,12 @@
 					<dd>Writing custom instructions with a rich text editor</dd>
 					<dd>Rearranging instructions</dd>
 					<dd>Inserting of test environment at any position</dd>
+
+					<dt>Test Environment</dt>
+					<dd>Save raw responses as well as coded responses</dd>
+					<dd>Setting participant code with URL parameter</dd>
+					<dd>Logging of solution building process</dd>
+					<dd>Timelimit for items and/or total test time</dd>
 				</dl>
 			</div>
 			<div class="plannedFeatures">
@@ -65,7 +71,6 @@
 					<dd>GDPR formular</dd>
 					<dd>Setting Timelimit</dd>
 					<dd>Setting working memory condition</dd>
-					<dd>Setting participant code with URL parameter</dd>
 				</dl>
 			</div>
 		</div>

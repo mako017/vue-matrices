@@ -88,6 +88,10 @@
 			<b>Insert Test</b> button you can decide at which point you want to display the test.
 		</p>
 		<testLayout />
+		<hr />
+		<h1>Test Settings</h1>
+		<p>In this section you can adjust settings that change the behavior of the test environment. As with the instructions, the prefilled values have been tested before and haven proven to allow for reliable testing.</p>
+		<settingsForm />
 	</div>
 </template>
 
@@ -97,6 +101,7 @@ import { Editor, EditorContent, EditorMenuBar } from "tiptap";
 import { Heading, HorizontalRule, Bold, Italic, Link, Strike, Underline, History, Image } from "tiptap-extensions";
 import fullPagePreview from "@/components/editor/fullPagePreview.vue";
 import testLayout from "@/components/editor/testLayout.vue";
+import settingsForm from "@/components/editor/settingsForm.vue";
 export default {
 	name: "editor",
 	components: {
@@ -104,6 +109,7 @@ export default {
 		EditorMenuBar,
 		fullPagePreview,
 		testLayout,
+		settingsForm,
 	},
 	data() {
 		return {

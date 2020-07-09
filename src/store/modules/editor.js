@@ -15,12 +15,22 @@ const state = {
 		},
 	],
 	selectedItems: [],
-	settings: {},
+	settings: {
+		testID: "defaultTest",
+		testTime: 600,
+		useTestTime: true,
+		displaytestTime: false,
+		itemTime: 60,
+		useItemTime: false,
+		displayItemtime: false,
+		displaySolution: true,
+	},
 };
 
 const getters = {
 	pages: state => state.pages,
 	selectedItems: state => state.selectedItems,
+	settings: state => state.settings,
 };
 
 const actions = {
