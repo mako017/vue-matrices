@@ -44,6 +44,7 @@
 					<dd>Writing custom instructions with a rich text editor</dd>
 					<dd>Rearranging instructions</dd>
 					<dd>Inserting of test environment at any position</dd>
+					<dd>Setting Timelimit</dd>
 
 					<dt>Test Environment</dt>
 					<dd>Save raw responses as well as coded responses</dd>
@@ -69,7 +70,6 @@
 					<dt>Test Editor</dt>
 					<dd>Generating Test Link</dd>
 					<dd>GDPR formular</dd>
-					<dd>Setting Timelimit</dd>
 					<dd>Setting working memory condition</dd>
 				</dl>
 			</div>
