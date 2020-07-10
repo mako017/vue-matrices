@@ -34,7 +34,7 @@ export default {
 }
 .pageContainer {
 	display: grid;
-	grid-template-columns: 2% 30vw;
+	grid-template-columns: 2% 40vw;
 	grid-template-rows: 4fr 4fr 4fr 1.5fr;
 	grid-template-areas:
 		"up preview"

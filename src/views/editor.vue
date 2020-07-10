@@ -174,7 +174,7 @@ hr {
 	display: inline-block;
 }
 .pageContainer {
-	width: 30vw;
+	width: 40vw;
 	margin-top: 1rem;
 	align-self: center;
 }
