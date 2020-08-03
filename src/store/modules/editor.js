@@ -23,7 +23,7 @@ const state = {
 			id: 3,
 			isTest: false,
 			html:
-				"<h1>Rules</h1><h2>Rotation</h2><h3></h3><p> The elements are rotated clockwise or counterclockwise . The rotation is either by 90° or 45°. </p><p></p><p> In the first cell the triangle points upwards. In the second cell, it is rotated by 90° clockwise and points to the right. In the third cell, it has been rotated counter clockwise by another 90° and therefore points downwards. </p><p></p><p><img src='http://lets-test.it/matrices/assets/img/editor/instrcution_graphics_004.png'></p>",
+				"<h1>Rules</h1><h2>Rotation</h2><h3></h3><p> The elements are rotated clockwise or counterclockwise . The rotation is either by 90° or 180°. </p><p></p><p> In the first cell the triangle points upwards. In the second cell, it is rotated by 90° clockwise and points to the right. In the third cell, it has been rotated counter clockwise by another 90° and therefore points downwards. </p><p></p><p><img src='http://lets-test.it/matrices/assets/img/editor/instrcution_graphics_004.png'></p>",
 		},
 		{
 			id: 4,
@@ -35,19 +35,19 @@ const state = {
 			id: 5,
 			isTest: false,
 			html:
-				"<h1>Rules</h1><h2>Subtraction</h2><h3></h3><p> The elements of the second cell are removed from  the elements of the first cell, so that only the remaining elements are displayed in the third cell. .</p><p></p><p>In the first cell, the boxes on the left, top and right are shown. In the second cell, the box is shown at the top. If the contents of the second cell (upper box) are now removed from the elements of the first cell, the third cell is obtained. The third cell contains two boxes: left and right. </p><p></p><p><img src='http://lets-test.it/matrices/assets/img/editor/instrcution_graphics_006.png'></p>",
+				"<h1>Rules</h1><h2>Subtraction</h2><h3></h3><p> The elements of the second cell are removed from the elements of the first cell, so that only the remaining elements are displayed in the third cell.</p><p></p><p>In the first cell, the boxes on the left, top and right are shown. In the second cell, the box is shown at the top. If the contents of the second cell (upper box) are now removed from the elements of the first cell, the third cell is obtained. The third cell contains two boxes: left and right. </p><p></p><p><img src='http://lets-test.it/matrices/assets/img/editor/instrcution_graphics_006.png'></p>",
 		},
 		{
 			id: 6,
 			isTest: false,
 			html:
-				"<h1>Rules</h1><h2>Disjunctive Union</h2><h3></h3><p> Elements that are present ed in both the first and second cell cancel each other out. The third cell thus contains elements that are either only shown in the first or only in the second cell. .</p><p></p><p> The triangle at the top edge is only shown in the first cell, the triangle at the bottom edge only in the second. These triangles are therefore displayed in the third cell. The triangle at the right margin appears in both the first and second cell and is therefore no longer displayed in the third cell. </p><p></p><p><img src='http://lets-test.it/matrices/assets/img/editor/instrcution_graphics_007.png'></p>",
+				"<h1>Rules</h1><h2>Disjunctive Union</h2><h3></h3><p> Elements that are presented in both the first and second cell cancel each other out. The third cell thus contains elements that are either only shown in the first or only in the second cell. .</p><p></p><p> The triangle at the top edge is only shown in the first cell, the triangle at the bottom edge only in the second. These triangles are therefore displayed in the third cell. The triangle at the right margin appears in both the first and second cell and is therefore no longer displayed in the third cell. </p><p></p><p><img src='http://lets-test.it/matrices/assets/img/editor/instrcution_graphics_007.png'></p>",
 		},
 		{
 			id: 7,
 			isTest: false,
 			html:
-				"<h1>Rules</h1><h2>Intersection</h2><h3></h3><p> In the third cell, the elements that are present ed in both the first and second cell appear. </p><p></p><p>The top right and top left corners appear in both the first and second cells and are therefore displayed in the third cell. The other two corners from the first cell are only displayed in this cell and are therefore not displayed in the third cell. </p><p></p><p><img src='http://lets-test.it/matrices/assets/img/editor/instrcution_graphics_008.png'></p>",
+				"<h1>Rules</h1><h2>Intersection</h2><h3></h3><p> In the third cell, the elements that are presented in both the first and second cell appear. </p><p></p><p>The top right and top left corners appear in both the first and second cells and are therefore displayed in the third cell. The other two corners from the first cell are only displayed in this cell and are therefore not displayed in the third cell. </p><p></p><p><img src='http://lets-test.it/matrices/assets/img/editor/instrcution_graphics_008.png'></p>",
 		},
 		{
 			id: 8,
