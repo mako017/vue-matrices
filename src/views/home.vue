@@ -8,14 +8,15 @@
 			</p>
 			<p>
 				The Open Matrices Item Bank (OMIB) aims to fill yet a gap in open science and is inspired by projects like the
-				<a
-					href="https://ipip.ori.org/"
-				>International Personality Item Pool</a>. To our knowledge, while open access test databases like the
-				<a
-					href="https://zis.gesis.org/en"
-				>Open Access Repository for Measurement Instruments</a> exist, there is no way to flexibly build a construction based figural matrices test with free items. The OMIB provides a solution for this problem. With easy to understand tools everybody is able to build a matrices test without the need to worry about making mistakes during the test construction.
+				<a href="https://ipip.ori.org/">International Personality Item Pool</a>. To our knowledge, while open access test databases like the
+				<a href="https://zis.gesis.org/en">Open Access Repository for Measurement Instruments</a> exist, there is no way to flexibly build a construction based figural matrices test with free items.
+				The OMIB provides a solution for this problem. With easy to understand tools everybody is able to build a matrices test without the need to worry about making mistakes during the test
+				construction.
 			</p>
-			<p>For scientific use this software is completely free. However, we have two requests. First, in order to make the item database even more versatile and to steadily increase the number of items we offer, we would like to use the data from your study to estimate item parameters. Second, if you plan to publish data gathered with the OMIB please include the following reference.</p>
+			<p>
+				For scientific use this software is completely free. However, we have two requests. First, in order to make the item database even more versatile and to steadily increase the number of items
+				we offer, we would like to use the data from your study to estimate item parameters. Second, if you plan to publish data gathered with the OMIB please include the following reference.
+			</p>
 			<h2>Citation</h2>
 			<p>
 				<i>in preparation</i>
@@ -39,6 +40,7 @@
 					<dd>Information concerning which rules are used in each item</dd>
 					<dd>Filtering for number of rules and each rule type</dd>
 					<dd>Selecting any number of items for use in test sets</dd>
+					<dd>Overview of selected items</dd>
 
 					<dt>Test Editor</dt>
 					<dd>Writing custom instructions with a rich text editor</dd>
@@ -63,8 +65,6 @@
 					<dd>More settings</dd>
 
 					<dt>Matrices Database</dt>
-					<dd>Overview of selected items</dd>
-					<dd>More Filter options</dd>
 					<dd>Random selection with average difficulty</dd>
 
 					<dt>Test Editor</dt>
