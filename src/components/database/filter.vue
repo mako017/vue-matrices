@@ -58,14 +58,14 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .root {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-}
-.root > * {
-	margin: 0.5% 1%;
+	.root > * {
+		margin: 0.5% 1%;
+	}
 }
 @media (max-width: 850px) {
 	.root {
