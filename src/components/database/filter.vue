@@ -22,6 +22,7 @@
 		<md-switch @change="updateFilter" v-model="getFilter.singleRule.rot" class="md-primary">Rotation</md-switch>
 		<md-switch @change="updateFilter" v-model="getFilter.singleRule.voll" class="md-primary">Completeness</md-switch>
 		<md-switch @change="updateFilter" v-model="getFilter.selected" class="md-primary">Show selected</md-switch>
+		<button type="button" @click="restartFilter">Reset filter</button>
 	</div>
 </template>
 
@@ -33,9 +34,13 @@ import { mapGetters, mapActions } from "vuex";
 export default {
 	name: "filter",
 	methods: {
-		...mapActions(["setFilter", "applyFilter"]),
+		...mapActions(["setFilter", "applyFilter", "resetFilter"]),
 		updateFilter() {
 			this.setFilter(this.getFilter);
+			this.applyFilter();
+		},
+		restartFilter() {
+			this.resetFilter();
 			this.applyFilter();
 		},
 	},

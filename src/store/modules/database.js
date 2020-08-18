@@ -65,6 +65,21 @@ const actions = {
 		let response = await COMM.requestData("readAll");
 		commit("mutateItems", response);
 	},
+	resetFilter({ commit }) {
+		commit("mutateFilter", {
+			id: 0,
+			rules: 0,
+			selected: false,
+			singleRule: {
+				add: false,
+				sub: false,
+				eka: false,
+				sm: false,
+				rot: false,
+				voll: false,
+			},
+		});
+	},
 	setFilter({ commit }, filter) {
 		commit("mutateFilter", filter);
 	},
