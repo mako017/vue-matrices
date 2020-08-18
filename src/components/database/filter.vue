@@ -16,27 +16,12 @@
 			</select>
 		</label>
 		<md-switch @change="updateFilter" v-model="getFilter.singleRule.add" class="md-primary">Addition</md-switch>
-		<md-switch
-			@change="updateFilter"
-			v-model="getFilter.singleRule.sub"
-			class="md-primary"
-		>Subtraction</md-switch>
-		<md-switch
-			@change="updateFilter"
-			v-model="getFilter.singleRule.eka"
-			class="md-primary"
-		>Disjunctive Union</md-switch>
-		<md-switch
-			@change="updateFilter"
-			v-model="getFilter.singleRule.sm"
-			class="md-primary"
-		>Intersection</md-switch>
+		<md-switch @change="updateFilter" v-model="getFilter.singleRule.sub" class="md-primary">Subtraction</md-switch>
+		<md-switch @change="updateFilter" v-model="getFilter.singleRule.eka" class="md-primary">Disjunctive Union</md-switch>
+		<md-switch @change="updateFilter" v-model="getFilter.singleRule.sm" class="md-primary">Intersection</md-switch>
 		<md-switch @change="updateFilter" v-model="getFilter.singleRule.rot" class="md-primary">Rotation</md-switch>
-		<md-switch
-			@change="updateFilter"
-			v-model="getFilter.singleRule.voll"
-			class="md-primary"
-		>Completeness</md-switch>
+		<md-switch @change="updateFilter" v-model="getFilter.singleRule.voll" class="md-primary">Completeness</md-switch>
+		<md-switch @change="updateFilter" v-model="getFilter.selected" class="md-primary">Show selected</md-switch>
 	</div>
 </template>
 

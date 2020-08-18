@@ -6,6 +6,7 @@ const state = {
 	Filter: {
 		id: 0,
 		rules: 0,
+		selected: false,
 		singleRule: {
 			add: false,
 			sub: false,
@@ -25,7 +26,7 @@ const getters = {
 };
 
 const actions = {
-	applyFilter({ commit, dispatch }) {
+	applyFilter({ commit, dispatch, rootGetters }) {
 		let Items = [...state.Items];
 		const sumRules = item => item.rules.add + item.rules.sub + item.rules.eka + item.rules.sm + item.rules.rot + item.rules.voll;
 
@@ -33,6 +34,11 @@ const actions = {
 			Items = Items.filter(item => item.id === state.Filter.id);
 			commit("mutateFilteredItems", Items);
 			return 1;
+		}
+		if (state.Filter.selected) {
+			const IDS = rootGetters.selectedItems.map(item => item.id);
+			Items = Items.filter(item => IDS.includes(item.id));
+			console.log(Items);
 		}
 		if (state.Filter.rules !== 0) {
 			Items = Items.filter(item => sumRules(item) === state.Filter.rules);
@@ -46,7 +52,6 @@ const actions = {
 
 		commit("mutateFilteredItems", Items);
 		dispatch("chunkFilter");
-		console.log(state.Items);
 	},
 	chunkFilter({ commit }) {
 		const bigChunk = [...state.FilteredItems];
