@@ -1,9 +1,10 @@
 <template>
 	<div class="root">
 		<div v-for="(page, index) in pages" :key="index" class="pageContainer">
-			<span @click="movePage({page:index,direction:'up'})" class="up">↑</span>
+			<span @click="movePage({ page: index, direction: 'up' })" class="up">↑</span>
 			<span @click="deletePage(index)" class="del">X</span>
-			<span @click="movePage({page:index,direction:'down'})" class="down">↓</span>
+			<span @click="activatePage(index)" class="edit">E</span>
+			<span @click="movePage({ page: index, direction: 'down' })" class="down">↓</span>
 			<fullPagePreview v-if="!page.isTest" :html="page.html" class="preview" />
 			<testPreview class="preview" v-else />
 			<button @click="addTest(index)" type="button">Insert Test</button>
@@ -20,7 +21,7 @@ export default {
 		fullPagePreview,
 		testPreview,
 	},
-	methods: mapActions(["movePage", "deletePage", "addTest"]),
+	methods: mapActions(["movePage", "deletePage", "addTest", "activatePage"]),
 	computed: mapGetters(["pages"]),
 };
 </script>
@@ -35,10 +36,11 @@ export default {
 .pageContainer {
 	display: grid;
 	grid-template-columns: 2% 40vw;
-	grid-template-rows: 4fr 4fr 4fr 1.5fr;
+	grid-template-rows: 4fr 4fr 4fr 4fr 1.5fr;
 	grid-template-areas:
 		"up preview"
 		"del preview"
+		"edit preview"
 		"down preview"
 		"button button";
 	align-items: center;
@@ -52,7 +54,8 @@ export default {
 
 .pageContainer .up,
 .down,
-.del {
+.del,
+.edit {
 	justify-self: end;
 	font-size: 2rem;
 	border: 1px solid #acacac;
@@ -69,6 +72,11 @@ export default {
 }
 .pageContainer .del {
 	grid-area: del;
+	align-self: end;
+}
+.pageContainer .edit {
+	grid-area: edit;
+	align-self: start;
 }
 .pageContainer .preview {
 	grid-area: preview;

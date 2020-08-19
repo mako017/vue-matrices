@@ -56,6 +56,7 @@ const state = {
 				"<h1>Rules</h1><h2>Completeness</h2><h3></h3><p> To solve the task with the help of this rule, the entire matrix and not a single row must be considered. The elements contained in the first and second row must also be shown in the third row. </p><p></p><p>Here the set consists of the elements: empty circle, filled circle and filled rectangle. Each of the rows of the matrix contains all elements of the set. The third cell in the bottom row therefore contains the empty circle. </p><p></p><p><img src='http://lets-test.it/matrices/assets/img/editor/instrcution_graphics_009.png'></p>",
 		},
 	],
+	currentPage: 0,
 	selectedItems: [],
 	settings: {
 		testID: "defaultTest",
@@ -70,12 +71,16 @@ const state = {
 };
 
 const getters = {
+	currentPage: state => state.currentPage,
 	pages: state => state.pages,
 	selectedItems: state => state.selectedItems,
 	settings: state => state.settings,
 };
 
 const actions = {
+	activatePage: ({ commit }, page) => {
+		commit("setCurrentPage", page);
+	},
 	addPage: ({ commit }, newPage) => {
 		let newPages = [...state.pages];
 		newPages.push({
@@ -136,6 +141,7 @@ const actions = {
 };
 
 const mutations = {
+	setCurrentPage: (state, page) => (state.currentPage = page),
 	setPages: (state, newPages) => (state.pages = newPages),
 	setSelectedItems: (state, newSelection) => (state.selectedItems = newSelection),
 };

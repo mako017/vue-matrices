@@ -62,10 +62,11 @@
 				<button class="menubar__button" @click="showImagePrompt(commands.image)">
 					<span>IMG</span>
 				</button>
+				<span class="pageOf">Page {{ currentPage + 1 }} of {{ pages.length }}</span>
 			</div>
 		</editor-menu-bar>
 		<editor-content class="editor-content" :editor="editor" />
-		<button @click="savePage" type="button">Save page</button>
+		<button @click="savePage" type="button">{{ saveInstText }}</button>
 		<hr />
 		<h1 id="testPreview">Current Page Preview</h1>
 		<p>
@@ -137,7 +138,7 @@ export default {
 		};
 	},
 	methods: {
-		...mapActions(["addPage", "uploadTest"]),
+		...mapActions(["addPage", "uploadTest", "activatePage"]),
 		savePage() {
 			this.addPage(this.html);
 		},
@@ -155,7 +156,18 @@ export default {
 			}
 		},
 	},
-	computed: mapGetters(["isAuthenticated", "userName"]),
+	computed: {
+		...mapGetters(["isAuthenticated", "userName", "pages", "currentPage"]),
+		saveInstText: function() {
+			if (this.currentPage >= this.pages.length) {
+				return "Add new Page";
+			}
+			return "Save Changes";
+		},
+	},
+	mounted() {
+		this.activatePage(this.pages.length);
+	},
 	beforeDestroy() {
 		this.editor.destroy();
 	},
@@ -179,6 +191,7 @@ hr {
 .editor-nav {
 	background-color: #212121;
 	position: fixed;
+	top: 25vh;
 	right: 0;
 	display: flex;
 	flex-direction: column;
@@ -201,13 +214,23 @@ hr {
 	min-height: 100vh;
 	width: 50vw;
 	margin: auto;
+	padding-bottom: 2rem;
 	text-align: left;
 	display: flex;
 	flex-direction: column;
 }
 .menubar {
 	margin: 1rem 0 0 0;
-	font-size: 1.3rem;
+	display: flex;
+	span {
+		font-size: 1.2rem;
+	}
+	span.pageOf {
+		margin-left: auto;
+	}
+	button {
+		margin: 0 0.1rem 0.3rem 0.1rem;
+	}
 }
 .editor-content {
 	border: 1px solid black;
@@ -221,23 +244,23 @@ hr {
 	margin: 0.5rem 0;
 }
 
-.editor-content >>> strong {
+.editor-content::v-deep strong {
 	font-weight: bold;
 }
-.editor-content >>> em {
+.editor-content::v-deep em {
 	font-style: italic;
 }
-.editor-content >>> h1 {
+.editor-content::v-deep h1 {
 	font-size: 1.5rem;
 	font-weight: bold;
 	text-align: center;
 }
-.editor-content >>> h2 {
+.editor-content::v-deep h2 {
 	font-size: 1.2rem;
 	font-weight: bold;
 	text-align: center;
 }
-.editor-content >>> h3 {
+.editor-content::v-deep h3 {
 	font-weight: bold;
 	text-align: center;
 }
