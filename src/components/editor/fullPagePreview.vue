@@ -38,6 +38,8 @@ export default {
 .html-container >>> img {
 	max-height: calc(60vh * 0.4);
 	max-width: calc(80% * 0.4);
+	display: block;
+	margin: 0.7rem auto;
 }
 
 .html-container >>> p {

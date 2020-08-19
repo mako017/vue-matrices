@@ -1,6 +1,13 @@
 <template>
 	<div class="container">
-		<h1 @click="finalizeTest">Editor</h1>
+		<div class="editor-nav">
+			<span><u>Editor Navigation</u></span>
+			<span><a href="#testEditor">Editor</a></span>
+			<span><a href="#testPreview">Current Page</a></span>
+			<span><a href="#testDesign">Test Design</a></span>
+			<span><a href="#testSettings">Settings</a></span>
+		</div>
+		<h1 id="testEditor" @click="finalizeTest">Editor</h1>
 		<p>
 			With the controls below, you can freely build your own instructions and test design. Of course, if you have no need for changing any of our standardized instructions, you can always use our
 			instructions. We recommend that when you write your own instructions, you should try to avoid making the user scroll. The best user experience results from the user being able to read all
@@ -28,24 +35,15 @@
 						<u>U</u>
 					</span>
 				</button>
-				<button
-					:class="{ 'is-active': isActive.heading({ level: 1 }) }"
-					@click="commands.heading({ level: 1 })"
-				>
+				<button :class="{ 'is-active': isActive.heading({ level: 1 }) }" @click="commands.heading({ level: 1 })">
 					<span>H1</span>
 				</button>
 
-				<button
-					:class="{ 'is-active': isActive.heading({ level: 2 }) }"
-					@click="commands.heading({ level: 2 })"
-				>
+				<button :class="{ 'is-active': isActive.heading({ level: 2 }) }" @click="commands.heading({ level: 2 })">
 					<span>H2</span>
 				</button>
 
-				<button
-					:class="{ 'is-active': isActive.heading({ level: 3 }) }"
-					@click="commands.heading({ level: 3 })"
-				>
+				<button :class="{ 'is-active': isActive.heading({ level: 3 }) }" @click="commands.heading({ level: 3 })">
 					<span>H3</span>
 				</button>
 
@@ -69,16 +67,17 @@
 		<editor-content class="editor-content" :editor="editor" />
 		<button @click="savePage" type="button">Save page</button>
 		<hr />
+		<h1 id="testPreview">Current Page Preview</h1>
 		<p>
 			In the red box below you'll see a miniature preview of the instruction page you're working on. On a standard 16/9 fullHD monitor it should resemble the layout of the real instructions rather
 			closely.
 		</p>
-		<textarea v-model="html"></textarea>
+		<!-- <textarea v-model="html"></textarea> -->
 		<div class="pageContainer">
 			<fullPagePreview :html="html" />
 		</div>
 		<hr />
-		<h1>Test Design</h1>
+		<h1 id="testDesign">Test Design</h1>
 		<p>
 			In the section below you will see all instructions in the order you wrote them. If you feel that a different order might be better, you can use the arrow buttons besides the preview to rearrange
 			the instructions.
@@ -89,8 +88,11 @@
 		</p>
 		<testLayout />
 		<hr />
-		<h1>Test Settings</h1>
-		<p>In this section you can adjust settings that change the behavior of the test environment. As with the instructions, the prefilled values have been tested before and haven proven to allow for reliable testing.</p>
+		<h1 id="testSettings">Test Settings</h1>
+		<p>
+			In this section you can adjust settings that change the behavior of the test environment. As with the instructions, the prefilled values have been tested before and haven proven to allow for
+			reliable testing.
+		</p>
 		<settingsForm />
 	</div>
 </template>
@@ -160,19 +162,35 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 h1 {
 	display: inline-block;
 	text-align: center;
 	font-size: 1.5rem;
 	font-weight: bold;
-	margin: 2rem 0;
+	margin: 1rem 0;
 }
 hr {
 	width: 100%;
 	margin: 1rem 0;
 	display: inline-block;
 }
+
+.editor-nav {
+	background-color: #212121;
+	position: fixed;
+	right: 0;
+	display: flex;
+	flex-direction: column;
+	padding: 0.2rem 0.5rem;
+	span,
+	a {
+		font-size: 1.2rem;
+		color: #fff;
+		margin: 0.3rem 0;
+	}
+}
+
 .pageContainer {
 	width: 40vw;
 	margin-top: 1rem;
@@ -188,7 +206,7 @@ hr {
 	flex-direction: column;
 }
 .menubar {
-	margin: 2rem 0 0 0;
+	margin: 1rem 0 0 0;
 	font-size: 1.3rem;
 }
 .editor-content {
