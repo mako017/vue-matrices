@@ -1,11 +1,24 @@
 <template>
 	<div class="container">
 		<div class="editor-nav">
-			<span><u>Editor Navigation</u></span>
-			<span><a href="#testEditor">Editor</a></span>
-			<span><a href="#testPreview">Current Page</a></span>
-			<span><a href="#testDesign">Test Design</a></span>
-			<span><a href="#testSettings">Settings</a></span>
+			<span>
+				<u>Editor Navigation</u>
+			</span>
+			<span>
+				<a href="#testEditor">Editor</a>
+			</span>
+			<span>
+				<a href="#testPreview">Current Page</a>
+			</span>
+			<span>
+				<a href="#testDesign">Test Design</a>
+			</span>
+			<span>
+				<a href="#testSettings">Settings</a>
+			</span>
+			<span>
+				<a href="#testFinalize">Finalizing</a>
+			</span>
 		</div>
 		<h1 id="testEditor" @click="finalizeTest">Editor</h1>
 		<p>
@@ -35,15 +48,24 @@
 						<u>U</u>
 					</span>
 				</button>
-				<button :class="{ 'is-active': isActive.heading({ level: 1 }) }" @click="commands.heading({ level: 1 })">
+				<button
+					:class="{ 'is-active': isActive.heading({ level: 1 }) }"
+					@click="commands.heading({ level: 1 })"
+				>
 					<span>H1</span>
 				</button>
 
-				<button :class="{ 'is-active': isActive.heading({ level: 2 }) }" @click="commands.heading({ level: 2 })">
+				<button
+					:class="{ 'is-active': isActive.heading({ level: 2 }) }"
+					@click="commands.heading({ level: 2 })"
+				>
 					<span>H2</span>
 				</button>
 
-				<button :class="{ 'is-active': isActive.heading({ level: 3 }) }" @click="commands.heading({ level: 3 })">
+				<button
+					:class="{ 'is-active': isActive.heading({ level: 3 }) }"
+					@click="commands.heading({ level: 3 })"
+				>
 					<span>H3</span>
 				</button>
 
@@ -95,6 +117,15 @@
 			reliable testing.
 		</p>
 		<settingsForm />
+		<hr />
+		<h1 id="testFinalize">Finalizing your test</h1>
+		<p v-html="testStatus"></p>
+		<p>
+			When you are satisfied with the test layout, clicking on
+			<b>Deploy test</b> will make the test available online. You will receive an URL that can be shared with participants. The first URL is completely anonymized. If you use this URL, each participant will receive a random participant code and you
+			<b>cannot</b> examine any relation of the matrices test result with other variables. If you wish to examine associations between intelligence and other variables, you should use the second link. In this case, you must send each participant a personalized link (i.e. replace %participantID% with an ID that you generate for each participant).
+		</p>
+		<button type="button">Deploy test</button>
 	</div>
 </template>
 
@@ -128,19 +159,20 @@ export default {
 					new History(),
 					new Image(),
 				],
-				content: `<h1>Instruction Page 1</h1><h2>How to use our instructions</h2><h3>Another even smaller header</h3><p>While we want you, to be able to customize all instructions, to your own needs, we can also understand that you might just want to use our pre made instructions. This is totally fine and <strong>you don't need to explicitly ask for our consent</strong>. <em>These instructions have been tested on several samples</em> in the past and have proven to be long enough so an <u>average</u> adult will understand the task at hand.</p><hr><h3>Custom instructions</h3><p>Of course, if you choose to use your own instructions, we want you to have access to the same tools we used. Thus you can freely write your own instructions with HTML and inline CSS. However, please understand that we can't guarantee that your handmade instructions will be displayed properly on all devices. Thus before sending the test link to your sample, make sure to test it on several devices, including smartphones, tablets and notebooks. Also different browsers may display your instructions differently and operating systems such as Android and iOS have differences, too.</p>`,
 				onUpdate: ({ getHTML }) => {
 					this.html = getHTML();
 				},
 			}),
-			html:
-				"<h1>Instruction Page 1</h1><h2>How to use our instructions</h2><h3>Another even smaller header</h3><p>While we want you, to be able to customize all instructions, to your own needs, we can also understand that you might just want to use our pre made instructions. This is totally fine and <strong>you don't need to explicitly ask for our consent</strong>. <em>These instructions have been tested on several samples</em> in the past and have proven to be long enough so an <u>average</u> adult will understand the task at hand.</p><hr><h3>Custom instructions</h3><p>Of course, if you choose to use your own instructions, we want you to have access to the same tools we used. Thus you can freely write your own instructions with HTML and inline CSS. However, please understand that we can't guarantee that your handmade instructions will be displayed properly on all devices. Thus before sending the test link to your sample, make sure to test it on several devices, including smartphones, tablets and notebooks. Also different browsers may display your instructions differently and operating systems such as Android and iOS have differences, too.</p>",
+			html: "",
 		};
 	},
 	methods: {
-		...mapActions(["addPage", "uploadTest", "activatePage"]),
+		...mapActions(["addPage", "editPage", "uploadTest", "activatePage"]),
 		savePage() {
-			this.addPage(this.html);
+			if (this.currentPage >= this.pages.length) {
+				this.addPage(this.html);
+			}
+			this.editPage({ pos: this.currentPage, newPage: this.html });
 		},
 		finalizeTest() {
 			if (!this.isAuthenticated) {
@@ -157,16 +189,31 @@ export default {
 		},
 	},
 	computed: {
-		...mapGetters(["isAuthenticated", "userName", "pages", "currentPage"]),
-		saveInstText: function() {
+		...mapGetters(["isAuthenticated", "isOnline", "userName", "pages", "currentPage", "currentHTML"]),
+		saveInstText: function () {
 			if (this.currentPage >= this.pages.length) {
 				return "Add new Page";
 			}
 			return "Save Changes";
 		},
+		testStatus: function () {
+			if (this.isOnline) return 'Status: <span style="color:green;">online</span>';
+			return 'Status: <span style="color:red;">offline</span>';
+		},
+	},
+	watch: {
+		currentPage() {
+			if (this.currentPage < this.pages.length) {
+				this.activatePage(this.currentPage);
+				this.html = this.pages[this.currentPage].html;
+				this.editor.setContent(this.html);
+			}
+		},
 	},
 	mounted() {
 		this.activatePage(this.pages.length);
+		this.html = this.currentHTML;
+		this.editor.setContent(this.html);
 	},
 	beforeDestroy() {
 		this.editor.destroy();
