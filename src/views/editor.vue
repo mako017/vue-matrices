@@ -89,6 +89,7 @@
 		</editor-menu-bar>
 		<editor-content class="editor-content" :editor="editor" />
 		<button @click="savePage" type="button">{{ saveInstText }}</button>
+		<button v-if="currentPage < pages.length" @click="newPage" type="button">New page</button>
 		<hr />
 		<h1 id="testPreview">Current Page Preview</h1>
 		<p>
@@ -120,7 +121,7 @@
 		<hr />
 		<h1 id="testFinalize">Finalizing your test</h1>
 		<p v-html="testStatus"></p>
-		<p>
+		<p v-if="!isOnline">
 			When you are satisfied with the test layout, clicking on
 			<b>Deploy test</b> will make the test available online. You will receive an URL that can be shared with participants. The first URL is completely anonymized. If you use this URL, each participant will receive a random participant code and you
 			<b>cannot</b> examine any relation of the matrices test result with other variables. If you wish to examine associations between intelligence and other variables, you should use the second link. In this case, you must send each participant a personalized link (i.e. replace %participantID% with an ID that you generate for each participant).
@@ -158,18 +159,24 @@ export default {
 	},
 	methods: {
 		...mapActions(["addPage", "editPage", "uploadTest", "activatePage"]),
-		savePage() {
-			if (this.currentPage >= this.pages.length) {
-				this.addPage(this.html);
-			}
-			this.editPage({ pos: this.currentPage, newPage: this.html });
-		},
 		finalizeTest() {
 			if (!this.isAuthenticated) {
 				alert("This function is only available for registered users.");
 				return 0;
 			}
 			this.uploadTest(this.userName);
+		},
+		newPage() {
+			this.activatePage(this.pages.length);
+			this.html = this.currentHTML;
+			this.editor.setContent(this.html);
+		},
+		savePage() {
+			if (this.currentPage >= this.pages.length) {
+				this.addPage(this.html);
+				this.newPage();
+			}
+			this.editPage({ pos: this.currentPage, newPage: this.html });
 		},
 		showImagePrompt(command) {
 			const src = prompt("Enter the url of your image here");
@@ -201,9 +208,7 @@ export default {
 		},
 	},
 	mounted() {
-		this.activatePage(this.pages.length);
-		this.html = this.currentHTML;
-		this.editor.setContent(this.html);
+		this.newPage();
 	},
 	beforeDestroy() {
 		this.editor.destroy();
