@@ -8,8 +8,12 @@
 			</p>
 			<p>
 				The Open Matrices Item Bank (OMIB) aims to fill yet a gap in open science and is inspired by projects like the
-				<a href="https://ipip.ori.org/">International Personality Item Pool</a>. To our knowledge, while open access test databases like the
-				<a href="https://zis.gesis.org/en">Open Access Repository for Measurement Instruments</a> exist, there is no way to flexibly build a construction based figural matrices test with free items.
+				<a
+					href="https://ipip.ori.org/"
+				>International Personality Item Pool</a>. To our knowledge, while open access test databases like the
+				<a
+					href="https://zis.gesis.org/en"
+				>Open Access Repository for Measurement Instruments</a> exist, there is no way to flexibly build a construction based figural matrices test with free items.
 				The OMIB provides a solution for this problem. With easy to understand tools everybody is able to build a matrices test without the need to worry about making mistakes during the test
 				construction.
 			</p>
@@ -47,6 +51,7 @@
 					<dd>Rearranging instructions</dd>
 					<dd>Inserting of test environment at any position</dd>
 					<dd>Setting Timelimit</dd>
+					<dd>Editing and deleting instruction pages</dd>
 
 					<dt>Test Environment</dt>
 					<dd>Save raw responses as well as coded responses</dd>

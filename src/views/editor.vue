@@ -148,17 +148,7 @@ export default {
 	data() {
 		return {
 			editor: new Editor({
-				extensions: [
-					new Heading({ levels: [1, 2, 3] }),
-					new HorizontalRule(),
-					new Link(), //
-					new Bold(),
-					new Italic(),
-					new Strike(),
-					new Underline(),
-					new History(),
-					new Image(),
-				],
+				extensions: [new Heading({ levels: [1, 2, 3] }), new HorizontalRule(), new Link(), new Bold(), new Italic(), new Strike(), new Underline(), new History(), new Image()],
 				onUpdate: ({ getHTML }) => {
 					this.html = getHTML();
 				},
