@@ -126,6 +126,10 @@
 			<b>Deploy test</b> will make the test available online. You will receive an URL that can be shared with participants. The first URL is completely anonymized. If you use this URL, each participant will receive a random participant code and you
 			<b>cannot</b> examine any relation of the matrices test result with other variables. If you wish to examine associations between intelligence and other variables, you should use the second link. In this case, you must send each participant a personalized link (i.e. replace %participantID% with an ID that you generate for each participant).
 		</p>
+		<p v-else>
+			Anonymous URL:
+			<br />Personalized URL:
+		</p>
 		<button type="button">Deploy test</button>
 	</div>
 </template>
