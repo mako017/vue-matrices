@@ -39,3 +39,28 @@ require("@/assets/css/normal.css");
 	color: #42b983;
 }
 </style>
+
+<style lang="scss">
+.tooltip {
+	position: relative;
+}
+.tooltip .tooltiptext {
+	visibility: hidden;
+	width: max-content;
+	text-align: center;
+	font-size: 0.7rem;
+	border-radius: 6px;
+	padding: 5px 0;
+	margin: auto 5px;
+
+	/* Position the tooltip */
+	position: absolute;
+	z-index: 1;
+	top: -5px;
+	right: 105%;
+}
+
+.tooltip:hover .tooltiptext {
+	visibility: visible;
+}
+</style>

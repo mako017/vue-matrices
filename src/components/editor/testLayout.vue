@@ -1,10 +1,22 @@
 <template>
 	<div class="root">
 		<div v-for="(page, index) in pages" :key="index" class="pageContainer">
-			<span @click="movePage({ page: index, direction: 'up' })" class="up">↑</span>
-			<span @click="deletePage(index)" class="del">X</span>
-			<span @click="activatePage(index)" class="edit">E</span>
-			<span @click="movePage({ page: index, direction: 'down' })" class="down">↓</span>
+			<span @click="movePage({ page: index, direction: 'up' })" class="up tooltip">
+				↑
+				<span class="tooltiptext">Move page up</span>
+			</span>
+			<span @click="deletePage(index)" class="del tooltip">
+				X
+				<span class="tooltiptext">Delete page</span>
+			</span>
+			<span @click="activatePage(index)" class="edit tooltip">
+				E
+				<span class="tooltiptext">Edit page</span>
+			</span>
+			<span @click="movePage({ page: index, direction: 'down' })" class="down tooltip">
+				↓
+				<span class="tooltiptext">Move page down</span>
+			</span>
 			<fullPagePreview v-if="!page.isTest" :html="page.html" class="preview" />
 			<testPreview class="preview" v-else />
 			<button @click="addTest(index)" type="button">Insert Test</button>
