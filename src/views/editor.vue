@@ -20,7 +20,7 @@
 				<a href="#testFinalize">Finalizing</a>
 			</span>
 		</div>
-		<h1 id="testEditor" @click="finalizeTest">Editor</h1>
+		<h1 id="testEditor">Editor</h1>
 		<p>
 			With the controls below, you can freely build your own instructions and test design. Of course, if you have no need for changing any of our standardized instructions, you can always use our
 			instructions. We recommend that when you write your own instructions, you should try to avoid making the user scroll. The best user experience results from the user being able to read all
@@ -48,24 +48,15 @@
 						<u>U</u>
 					</span>
 				</button>
-				<button
-					:class="{ 'is-active': isActive.heading({ level: 1 }) }"
-					@click="commands.heading({ level: 1 })"
-				>
+				<button :class="{ 'is-active': isActive.heading({ level: 1 }) }" @click="commands.heading({ level: 1 })">
 					<span>H1</span>
 				</button>
 
-				<button
-					:class="{ 'is-active': isActive.heading({ level: 2 }) }"
-					@click="commands.heading({ level: 2 })"
-				>
+				<button :class="{ 'is-active': isActive.heading({ level: 2 }) }" @click="commands.heading({ level: 2 })">
 					<span>H2</span>
 				</button>
 
-				<button
-					:class="{ 'is-active': isActive.heading({ level: 3 }) }"
-					@click="commands.heading({ level: 3 })"
-				>
+				<button :class="{ 'is-active': isActive.heading({ level: 3 }) }" @click="commands.heading({ level: 3 })">
 					<span>H3</span>
 				</button>
 
@@ -123,14 +114,16 @@
 		<p v-html="testStatus"></p>
 		<p v-if="!isOnline">
 			When you are satisfied with the test layout, clicking on
-			<b>Deploy test</b> will make the test available online. You will receive an URL that can be shared with participants. The first URL is completely anonymized. If you use this URL, each participant will receive a random participant code and you
-			<b>cannot</b> examine any relation of the matrices test result with other variables. If you wish to examine associations between intelligence and other variables, you should use the second link. In this case, you must send each participant a personalized link (i.e. replace %participantID% with an ID that you generate for each participant).
+			<b>Deploy test</b> will make the test available online. You will receive an URL that can be shared with participants. The first URL is completely anonymized. If you use this URL, each
+			participant will receive a random participant code and you <b>cannot</b> examine any relation of the matrices test result with other variables. If you wish to examine associations between
+			intelligence and other variables, you should use the second link. In this case, you must send each participant a personalized link (i.e. replace %participantID% with an ID that you generate for
+			each participant).
 		</p>
 		<p v-else>
 			Anonymous URL:
 			<br />Personalized URL:
 		</p>
-		<button type="button">Deploy test</button>
+		<button type="button" @click="finalizeTest">Deploy test</button>
 	</div>
 </template>
 
@@ -191,13 +184,13 @@ export default {
 	},
 	computed: {
 		...mapGetters(["isAuthenticated", "isOnline", "userName", "pages", "currentPage", "currentHTML"]),
-		saveInstText: function () {
+		saveInstText: function() {
 			if (this.currentPage >= this.pages.length) {
 				return "Add new Page";
 			}
 			return "Save Changes";
 		},
-		testStatus: function () {
+		testStatus: function() {
 			if (this.isOnline) return 'Status: <span style="color:green;">online</span>';
 			return 'Status: <span style="color:red;">offline</span>';
 		},
@@ -264,6 +257,10 @@ hr {
 	text-align: left;
 	display: flex;
 	flex-direction: column;
+	button {
+		align-self: center;
+		margin: 0.5rem 0;
+	}
 }
 .menubar {
 	margin: 1rem 0 0 0;
@@ -283,31 +280,29 @@ hr {
 	margin-bottom: 2rem;
 	padding: 0.5rem;
 	box-shadow: 0 0 2px black inset;
-}
-
-.container > button {
-	align-self: center;
-	margin: 0.5rem 0;
-}
-
-.editor-content::v-deep strong {
-	font-weight: bold;
-}
-.editor-content::v-deep em {
-	font-style: italic;
-}
-.editor-content::v-deep h1 {
-	font-size: 1.5rem;
-	font-weight: bold;
-	text-align: center;
-}
-.editor-content::v-deep h2 {
-	font-size: 1.2rem;
-	font-weight: bold;
-	text-align: center;
-}
-.editor-content::v-deep h3 {
-	font-weight: bold;
-	text-align: center;
+	::v-deep img {
+		display: block;
+		margin: 0 auto;
+	}
+	::v-deep strong {
+		font-weight: bold;
+	}
+	::v-deep em {
+		font-style: italic;
+	}
+	::v-deep h1 {
+		font-size: 1.5rem;
+		font-weight: bold;
+		text-align: center;
+	}
+	::v-deep h2 {
+		font-size: 1.2rem;
+		font-weight: bold;
+		text-align: center;
+	}
+	::v-deep h3 {
+		font-weight: bold;
+		text-align: center;
+	}
 }
 </style>
