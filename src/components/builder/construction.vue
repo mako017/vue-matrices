@@ -38,13 +38,13 @@
 
 <script>
 import drawSVG from "@/assets/js/drawing.js";
-import rCon from "@/assets/js/id-rule.js";
+import rCon from "@/assets/js/rCon.js";
 // import { mapActions, mapGetters } from "vuex";
 export default {
 	props: {
 		item: Object,
 	},
-	data: function () {
+	data: function() {
 		return {
 			selection: 1,
 			code: this.item.code.split(","),
@@ -97,19 +97,22 @@ export default {
 		// 		}
 		// 	}
 		// },
-		code: function () {
+		code: function() {
 			// erledigt, s.o.
 			drawSVG.clear("mat" + this.selection);
 			for (let i = 0; i < this.code[this.selection - 1].split("").length; i++) {
 				if (+this.code[this.selection - 1].split("")[i] === 1) drawSVG.select("mat" + this.selection, i);
 			}
 			this.$set(this.item, "code", this.code.join(","));
-			this.$set(this.item, "rules", rCon.fullTest(this.item.code));
+			const rcon = new rCon(this.item.code);
+			rcon.testAllRules();
+			this.$set(this.item, "rules", rcon.rules);
+			// this.$set(this.item, "rules", rConOld.fullTest(this.item.code));
 			let help = [...this.item.svg];
 			help[this.selection - 1] = drawSVG.getSvg("mat" + this.selection);
 			this.$set(this.item, "svg", [...help]);
 		},
-		item: function () {
+		item: function() {
 			// erledigt, s.o.
 			this.code = this.item.code.split(",");
 			for (let i = 0; i < 9; i++) {

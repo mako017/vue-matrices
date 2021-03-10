@@ -109,7 +109,7 @@ import collapse from "@/components/builder/collapsible.vue";
 import con from "@/components/builder/construction.vue";
 import drawer from "@/components/builder/item-drawer.vue";
 import { MdButton, MdProgress, MdSwitch } from "vue-material/dist/components";
-import rCon from "@/assets/js/id-rule.js";
+import rCon from "@/assets/js/rCon.js";
 import "vue-material/dist/vue-material.min.css";
 import "vue-material/dist/theme/default.css";
 Vue.use(MdButton);
@@ -172,7 +172,9 @@ export default {
 				alert("Dieses Item existiert schon");
 				return 1;
 			}
-			if (rCon.solvable(this.item.code, this.item.rules)) {
+			const rcon = new rCon(this.item.code);
+			rcon.testAllRules();
+			if (rcon.isSolvable) {
 				if (!this.items[this.item.id]) {
 					this.items.push({ ...this.item });
 					this.$set(this.item, "id", this.item.id + 1);

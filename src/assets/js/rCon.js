@@ -1,52 +1,25 @@
-interface SymbolRow {
-	a: string;
-	b: string;
-	c: string;
-}
-
-interface sumRows {
-	firstRow: string;
-	secondRow: string;
-	thirdRow: string;
-}
-
-interface Rules {
-	add: number[];
-	sub: number[];
-	eka: number[];
-	sm: number[];
-	rot: number[];
-	voll: number[];
-}
-
 class rCon {
-	private readonly SYMBOLS = 5;
-	private readonly SEPERATOR = ",";
-	private _fullCode: string;
-	private _codeArray: Array<string>;
-	private _units: Array<Array<string>>;
-	private _rules: Rules = {
-		add: [],
-		sub: [],
-		eka: [],
-		sm: [],
-		rot: [],
-		voll: [],
-	};
-
-	constructor(code: string) {
+	constructor(code) {
+		this.SYMBOLS = 5;
+		this.SEPERATOR = ",";
+		this._rules = {
+			add: [],
+			sub: [],
+			eka: [],
+			sm: [],
+			rot: [],
+			voll: [],
+		};
 		this._fullCode = code;
 		this._codeArray = code.split(this.SEPERATOR);
 		this._units = this._codeArray.map(item => {
 			return [item.slice(0, 4), item.slice(4, 8), item.slice(8, 12), item.slice(12, 16), item.slice(16, 20)];
 		});
 	}
-
-	public get rules(): Rules {
+	get rules() {
 		return this._rules;
 	}
-
-	public testAllRules(): void {
+	testAllRules() {
 		this.isSymbolAdd();
 		this.isSymbolSub();
 		this.isSymbolEKA();
@@ -54,34 +27,37 @@ class rCon {
 		this.isSymbolRot();
 		this.isVoll();
 	}
-
-	public testDuplicate(code: string, codes: string[]): boolean {
+	static testDuplicate(code, codes) {
 		return codes.includes(code);
 	}
-
-	public get isSolvable(): boolean {
-		const cleanUnits = this.zeroSolvedRules().join("");
+	get isSolvable() {
+		const cleanUnits = this.zeroSolvedRules();
+		cleanUnits.map(row => {
+			row.map(cell => {
+				if (+cell !== 0) {
+					return false;
+				}
+			});
+		});
 		let ruleCount = 0;
 		for (const key in this._rules) {
 			if (Object.prototype.hasOwnProperty.call(this._rules, key)) {
 				ruleCount += this._rules[key].length;
 			}
 		}
-		if (+cleanUnits === 0 && ruleCount > 0) {
+		if (ruleCount > 0) {
 			return true;
 		}
 		return false;
 	}
-
-	private singleSymbolRow(symbol: number, row: number): SymbolRow {
+	singleSymbolRow(symbol, row) {
 		return {
 			a: this._units[row * 3 + 0][symbol],
 			b: this._units[row * 3 + 1][symbol],
 			c: this._units[row * 3 + 2][symbol],
 		};
 	}
-
-	private isGroupAdd({ a, b, c }): boolean {
+	isGroupAdd({ a, b, c }) {
 		if (a === "0000" && b === "0000" && c === "0000") return false;
 		const mat = [
 			[0, 1],
@@ -93,7 +69,7 @@ class rCon {
 		}
 		return res === c;
 	}
-	private isSymbolAdd(): void {
+	isSymbolAdd() {
 		for (let symbol = 0; symbol < this.SYMBOLS; symbol++) {
 			let found = 0;
 			for (let row = 0; row < 3; row++) {
@@ -108,8 +84,7 @@ class rCon {
 			}
 		}
 	}
-
-	private isGroupSub({ a, b, c }): boolean {
+	isGroupSub({ a, b, c }) {
 		if (a === "0000" && b === "0000" && c === "0000") return false;
 		const mat = [
 			[0, 0],
@@ -121,7 +96,7 @@ class rCon {
 		}
 		return res === c;
 	}
-	private isSymbolSub(): void {
+	isSymbolSub() {
 		for (let symbol = 0; symbol < this.SYMBOLS; symbol++) {
 			let found = 0;
 			for (let row = 0; row < 3; row++) {
@@ -136,8 +111,7 @@ class rCon {
 			}
 		}
 	}
-
-	private isGroupEKA({ a, b, c }): boolean {
+	isGroupEKA({ a, b, c }) {
 		if (a === "0000" && b === "0000" && c === "0000") return false;
 		const mat = [
 			[0, 1],
@@ -149,7 +123,7 @@ class rCon {
 		}
 		return res === c;
 	}
-	private isSymbolEKA(): void {
+	isSymbolEKA() {
 		for (let symbol = 0; symbol < this.SYMBOLS; symbol++) {
 			let found = 0;
 			for (let row = 0; row < 3; row++) {
@@ -166,8 +140,7 @@ class rCon {
 			}
 		}
 	}
-
-	private isGroupSM({ a, b, c }): boolean {
+	isGroupSM({ a, b, c }) {
 		if (a === "0000" && b === "0000" && c === "0000") return false;
 		const mat = [
 			[0, 0],
@@ -179,7 +152,7 @@ class rCon {
 		}
 		return res === c;
 	}
-	private isSymbolSM(): void {
+	isSymbolSM() {
 		for (let symbol = 0; symbol < this.SYMBOLS; symbol++) {
 			let found = 0;
 			for (let row = 0; row < 3; row++) {
@@ -196,15 +169,14 @@ class rCon {
 			}
 		}
 	}
-
-	private isGroupRot({ a, b, c }) {
-		function rotateRight(code: string): string {
+	isGroupRot({ a, b, c }) {
+		function rotateRight(code) {
 			return code.slice(1) + code.slice(0, 1);
 		}
-		function rotateLeft(code: string): string {
+		function rotateLeft(code) {
 			return code.slice(3) + code.slice(0, 3);
 		}
-		function rotateHalf(code: string): string {
+		function rotateHalf(code) {
 			return code.slice(2, 4) + code.slice(0, 2);
 		}
 		const rotatesRight = rotateRight(a) === b && rotateRight(b) === c;
@@ -214,7 +186,7 @@ class rCon {
 		if (rotatesRight || rotatesLeft || rotatesHalf) return true;
 		return false;
 	}
-	private isSymbolRot() {
+	isSymbolRot() {
 		for (let symbol = 0; symbol < this.SYMBOLS; symbol++) {
 			let found = 0;
 			for (let row = 0; row < 3; row++) {
@@ -229,12 +201,11 @@ class rCon {
 			}
 		}
 	}
-
-	private zeroSolvedRules() {
+	zeroSolvedRules() {
 		const units = [...this._units];
 		for (const key in this._rules) {
 			if (Object.prototype.hasOwnProperty.call(this._rules, key)) {
-				const rule = this._rules[key] as number[];
+				const rule = this._rules[key];
 				rule.forEach(symbol => {
 					units.forEach(row => {
 						row[symbol] = "0000";
@@ -244,7 +215,7 @@ class rCon {
 		}
 		return units;
 	}
-	private addStrings(string1: string, string2: string) {
+	addStrings(string1, string2) {
 		const string2Arr = string2.split("");
 		return string1
 			.split("")
@@ -253,7 +224,7 @@ class rCon {
 			})
 			.join("");
 	}
-	private rowSums(units: string[][]): sumRows {
+	rowSums(units) {
 		const stringRows = units.map(row => row.join(""));
 		let firstRow = this.addStrings(stringRows[0], stringRows[1]);
 		firstRow = this.addStrings(firstRow, stringRows[2]);
@@ -267,7 +238,7 @@ class rCon {
 			thirdRow,
 		};
 	}
-	private isVoll() {
+	isVoll() {
 		const cleanUnits = this.zeroSolvedRules();
 		const rSums = this.rowSums(cleanUnits);
 		if (rSums.firstRow === rSums.secondRow && rSums.firstRow === rSums.thirdRow && rSums.firstRow !== "00000000000000000000") {
@@ -275,3 +246,4 @@ class rCon {
 		}
 	}
 }
+export default rCon;
