@@ -8,19 +8,11 @@
 		<div class="main" v-bind:class="{ active: settings.activeView == 'construct' }">
 			<div class="main-title">
 				<svg @click="switchItem(-1)" viewBox="0 0 50 80" xml:space="preserve">
-					<polyline
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						points="45.63,75.8 0.375,38.087 45.63,0.375 "
-					/>
+					<polyline stroke-linecap="round" stroke-linejoin="round" points="45.63,75.8 0.375,38.087 45.63,0.375 " />
 				</svg>
 				<h2>{{ itemCounter }}</h2>
 				<svg @click="switchItem(1)" viewBox="0 0 50 80" xml:space="preserve">
-					<polyline
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						points="0.375,0.375 45.63,38.087 0.375,75.8 "
-					/>
+					<polyline stroke-linecap="round" stroke-linejoin="round" points="0.375,0.375 45.63,38.087 0.375,75.8 " />
 				</svg>
 			</div>
 			<con :item="item" />
@@ -102,18 +94,9 @@
 			<button id="save-item" class="final-button" @click="saveItem">Save item</button>
 		</div>
 		<div class="navbar">
-			<span
-				v-bind:class="{ active: settings.activeView == 'help' }"
-				@click="settings.activeView = 'help'"
-			>Help</span>
-			<span
-				v-bind:class="{ active: settings.activeView == 'construct' }"
-				@click="settings.activeView = 'construct'"
-			>Construct</span>
-			<span
-				v-bind:class="{ active: settings.activeView == 'settings' }"
-				@click="settings.activeView = 'settings'"
-			>Settings</span>
+			<span v-bind:class="{ active: settings.activeView == 'help' }" @click="settings.activeView = 'help'">Help</span>
+			<span v-bind:class="{ active: settings.activeView == 'construct' }" @click="settings.activeView = 'construct'">Construct</span>
+			<span v-bind:class="{ active: settings.activeView == 'settings' }" @click="settings.activeView = 'settings'">Settings</span>
 		</div>
 	</div>
 </template>
