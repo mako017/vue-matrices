@@ -1,4 +1,4 @@
-import rCon from "@/assets/js/id-rule";
+import rCon from "@/assets/js/rCon";
 import COMM from "@/assets/js/communication";
 const state = {
 	item: {
@@ -67,7 +67,9 @@ const actions = {
 		// 	alert("Dieses Item existiert schon");
 		// 	return 1;
 		// }
-		if (rCon.solvable(state.item.code, state.item.rules)) {
+		const rcon = new rCon(state.item.code);
+		rcon.testAllRules();
+		if (rcon.isSolvable) {
 			if (!state.items[state.item.id]) {
 				commit("pushItem");
 				actions.resetItem();
